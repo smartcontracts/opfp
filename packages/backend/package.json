@@ -1,0 +1,37 @@
+{
+  "name": "@opfp/backend",
+  "version": "0.1.0",
+  "description": "OPFP backend",
+  "main": "dist/index",
+  "types": "dist/index",
+  "files": [
+    "dist/*"
+  ],
+  "scripts": {
+    "start": "ts-node ./src/index.ts",
+    "build": "yarn build:typescript",
+    "build:typescript": "tsc -p ./tsconfig.json",
+    "clean": "rimraf dist/ ./tsconfig.tsbuildinfo",
+    "lint": "yarn lint:fix && yarn lint:check",
+    "lint:fix": "yarn lint:check --fix",
+    "lint:check": "eslint . --max-warnings=0",
+    "pre-commit": "lint-staged"
+  },
+  "homepage": "https://github.com/smartcontracts/opfp/tree/develop/packages/backend#readme",
+  "license": "MIT",
+  "author": "Kelvin Fichter",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/smartcontracts/opfp.git"
+  },
+  "devDependencies": {
+    "@eth-optimism/common-ts": "^0.6.0",
+    "@eth-optimism/core-utils": "^0.9.0",
+    "@types/node-fetch": "^2.6.2",
+    "ethers": "^5.6.9",
+    "node-fetch": "2.6.7"
+  },
+  "dependencies": {
+    "@opfp/contracts": "^0.1.0"
+  }
+}
