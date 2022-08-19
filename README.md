@@ -28,4 +28,4 @@ The Magic Mirror Server will not render an image if the user does not own the as
 
 ## Architecture Diagram
 
-![Magic Mirror architecture diagram](https://user-images.githubusercontent.com/14298799/185703628-47a0f4db-aa84-4f05-b96d-c671845c7b88.png)
+![Magic Mirror architecture diagram](https://user-images.githubusercontent.com/14298799/185704548-d7d3cd88-56e5-4eff-a559-eb8908301248.png)
