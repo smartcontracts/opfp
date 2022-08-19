@@ -4,6 +4,7 @@ import {
   validators,
 } from '@eth-optimism/common-ts'
 import { abi as ERC721 } from '@opfp/contracts/artifacts/@openzeppelin/contracts/token/ERC721/ERC721.sol/ERC721.json'
+import { abi as MagicMirrorManager } from '@opfp/contracts/artifacts/contracts/MagicMirrorManager.sol/MagicMirrorManager.json'
 import { ethers } from 'ethers'
 import fetch from 'node-fetch'
 
@@ -40,13 +41,9 @@ export class OPFPBackendService extends BaseServiceV2<Options, Metrics, State> {
   }
 
   async routes(router: ExpressRouter) {
-    router.get('/mirror/uri/:chain/:token/:owner/:id', async (req, res) => {
-      if (!ethers.utils.isAddress(req.params.token)) {
-        return res.status(400).send('invalid token address')
-      }
-
+    router.get('/mirror/uri/:chain/:owner', async (req, res) => {
       if (!ethers.utils.isAddress(req.params.owner)) {
-        return res.status(400).send('invalid owner address')
+        return res.status(400).send('invalid token address')
       }
 
       const providers = {
@@ -59,22 +56,24 @@ export class OPFPBackendService extends BaseServiceV2<Options, Metrics, State> {
         return res.status(400).send('invalid chain ID')
       }
 
-      const nft = new ethers.Contract(req.params.token, ERC721, provider)
+      // Same address on every network
+      const manager = new ethers.Contract(
+        '0xEF76F4523C83fbB8A2833b80b1c13489B4AB1563',
+        MagicMirrorManager,
+        provider
+      )
 
-      let owner: string
+      let mirrored: any
       try {
-        owner = await nft.ownerOf(req.params.id)
+        mirrored = await manager.getMirroredNFT(req.params.owner)
       } catch (err) {
-        return res.status(400).send('unable to get owner address')
-      }
-
-      if (owner.toLowerCase() !== req.params.owner.toLowerCase()) {
-        return res.status(400).send('token not owned by given owner address')
+        return res.status(400).send('unable to get NFT')
       }
 
       let uri: string
       try {
-        uri = await nft.tokenURI(req.params.id)
+        const nft = new ethers.Contract(mirrored.token, ERC721, provider)
+        uri = await nft.tokenURI(mirrored.id)
       } catch (err) {
         return res.status(400).send('unable to get token URI from contract')
       }
@@ -85,8 +84,8 @@ export class OPFPBackendService extends BaseServiceV2<Options, Metrics, State> {
 
       try {
         const ret = await fetch(uri)
-        const body = await ret.text()
-        return res.send(body)
+        const body = await ret.json()
+        return res.json(body)
       } catch (err) {
         return res.status(400).send('unable to pull token URI data from remote')
       }
