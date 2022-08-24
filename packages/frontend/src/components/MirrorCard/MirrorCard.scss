@@ -4,7 +4,7 @@
   border-radius: 32px;
   background-color: var(--card);
   overflow: hidden;
-  box-shadow: 0px 0px 30px rgba(var(--primary-color-rgb), 0.8);
+  box-shadow: 0px 0px 30px rgba(var(--drop-shadow), 0.4);
 
   .mirrorCard__image {
     height: auto;

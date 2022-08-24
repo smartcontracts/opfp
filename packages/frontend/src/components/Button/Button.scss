@@ -1,0 +1,21 @@
+.button__container {
+  background-color: var(--primary-color);
+  color: var(--card);
+  border-radius: 12px;
+  border: none;
+  font-family: 'Rubik';
+  padding: 12px;
+  font-size: 20px;
+  font-weight: 600;
+  width: 100%;
+  cursor: pointer;
+  transition: all 200ms ease;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}

@@ -1,0 +1,1 @@
+export { TraitCard } from './TraitCard'
