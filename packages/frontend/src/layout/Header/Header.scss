@@ -1,6 +1,6 @@
 .header__container {
   padding: 24px;
-
+  margin-bottom: 80px;
   .header__nav {
     display: flex;
     align-items: center;
@@ -8,9 +8,35 @@
     list-style-type: none;
 
     li {
-      font-size: 24px;
+      font-size: 32px;
       .titleText {
         font-family: 'Fredoka One';
+        color: var(--primary-color);
+
+        .red {
+          color: var(--red);
+          text-shadow: 0px 0px 5px rgba(var(--red-rgb), 0.8);
+        }
+        .orange {
+          color: var(--orange);
+          text-shadow: 0px 0px 5px rgba(var(--orange-rgb), 0.8);
+        }
+        .yellow {
+          color: var(--yellow);
+          text-shadow: 0px 0px 5px rgba(var(--yellow-rgb), 0.8);
+        }
+        .green {
+          color: var(--green);
+          text-shadow: 0px 0px 5px rgba(var(--green-rgb), 0.8);
+        }
+        .blue {
+          color: var(--blue);
+          text-shadow: 0px 0px 10px rgba(var(--blue-rgb), 0.8);
+        }
+        .purple {
+          color: var(--purple);
+          text-shadow: 0px 0px 10px rgba(var(--purple-rgb), 0.8);
+        }
       }
     }
 

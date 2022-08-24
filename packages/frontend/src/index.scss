@@ -12,18 +12,117 @@ code {
   padding: 0;
 }
 
+$black: #080915;
+$light-grey: #c1c1c1;
+$dark-grey: #171623;
+$white: #f1f1ff;
+
+$pink-light: #ff69d5;
+$pink-dark: #ff3288;
+
+$red-light: #ff0000;
+$red-dark: #ca0000;
+$orange-light: #ff8000;
+$orange-dark: #e77f00;
+$yellow-light: #ffcc00;
+$yellow-dark: #e1b400;
+$green-light: #00ff00;
+$green-dark: #00ca00;
+$blue-light: #00acd6;
+$blue-dark: #00ccff;
+$purple-light: #a600ff;
+$purple-dark: #8900d3;
+
 body {
-  --black: #080915;
-  --white: #f1f1ff;
+  @function hexToRGB($hex) {
+    @return red($hex), green($hex), blue($hex);
+  }
 
   &.light {
-    background-color: var(--white);
-    --text-color: var(--black);
+    background-color: $white;
+    --text-color: #{$black};
+    --card: #{$white};
+    --drop-shadow: #{hexToRGB($light-grey)};
+    --pink: #{$pink-light};
+    --pink-rgb: #{hexToRGB($pink-light)};
+    --yellow: #{$yellow-light};
+    --yellow-rgb: #{hexToRGB($yellow-light)};
+    --green: #{$green-light};
+    --green-rgb: #{hexToRGB($green-light)};
+    --blue: #{$blue-light};
+    --blue-rgb: #{hexToRGB($blue-light)};
+    --purple: #{$purple-light};
+    --purple-rgb: #{hexToRGB($purple-light)};
+    --orange: #{$orange-light};
+    --orange-rgb: #{hexToRGB($orange-light)};
+    --red: #{$red-light};
+    --red-rgb: #{hexToRGB($red-light)};
+    --bone: #{$dark-grey};
+    --bone-rgb: #{hexToRGB($dark-grey)};
   }
 
   &.dark {
-    background-color: var(--black);
-    --text-color: var(--white);
+    background-color: $black;
+    --text-color: #{$white};
+    --card: #{$dark-grey};
+    --drop-shadow: #{hexToRGB($white)};
+    --pink: #{$pink-dark};
+    --pink-rgb: #{hexToRGB($pink-dark)};
+    --yellow: #{$yellow-dark};
+    --yellow-rgb: #{hexToRGB($yellow-dark)};
+    --green: #{$green-dark};
+    --green-rgb: #{hexToRGB($green-dark)};
+    --blue: #{$blue-dark};
+    --blue-rgb: #{hexToRGB($blue-dark)};
+    --purple: #{$purple-dark};
+    --purple-rgb: #{hexToRGB($purple-dark)};
+    --orange: #{$orange-dark};
+    --orange-rgb: #{hexToRGB($orange-dark)};
+    --red: #{$red-dark};
+    --red-rgb: #{hexToRGB($red-dark)};
+    --bone: #{$light-grey};
+    --bone-rgb: #{hexToRGB($light-grey)};
+  }
+
+  &.FLOWER {
+    --primary-color: var(--pink);
+    --primary-color-rgb: var(--pink-rgb);
+    --secondary-color: var(--yellow);
+  }
+
+  &.SUNFLOWER {
+    --primary-color: var(--yellow);
+    --primary-color-rgb: var(--yellow-rgb);
+  }
+
+  &.STRAWBERRY {
+    --primary-color: var(--red);
+    --primary-color-rgb: var(--red-rgb);
+  }
+
+  &.PUMPKIN {
+    --primary-color: var(--orange);
+    --primary-color-rgb: var(--orange-rgb);
+  }
+
+  &.BROCCOLI {
+    --primary-color: var(--green);
+    --primary-color-rgb: var(--green-rgb);
+  }
+
+  &.WATER {
+    --primary-color: var(--blue);
+    --primary-color-rgb: var(--blue-rgb);
+  }
+
+  &.GRAPE {
+    --primary-color: var(--purple);
+    --primary-color-rgb: var(--purple-rgb);
+  }
+
+  &.BONE {
+    --primary-color: var(--bone);
+    --primary-color-rgb: var(--bone-rgb);
   }
 }
 
