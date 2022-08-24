@@ -23,7 +23,7 @@ module.exports = {
   ],
   overrides: [
     {
-      files: ['**/*.ts','**/*.tsx'],
+      files: ['**/*.ts', '**/*.tsx'],
       parser: '@typescript-eslint/parser',
       parserOptions: {
         project: './packages/**/tsconfig.json',
@@ -58,12 +58,6 @@ module.exports = {
         '@typescript-eslint/no-misused-new': 'error',
         '@typescript-eslint/no-namespace': 'error',
         '@typescript-eslint/no-parameter-properties': 'off',
-        '@typescript-eslint/no-shadow': [
-          'error',
-          {
-            hoist: 'all',
-          },
-        ],
         '@typescript-eslint/no-this-alias': 'error',
         '@typescript-eslint/no-unused-expressions': 'off',
         '@typescript-eslint/no-use-before-define': 'off',

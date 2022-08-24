@@ -1,0 +1,33 @@
+.header__container {
+  padding: 24px;
+
+  .header__nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    list-style-type: none;
+
+    li {
+      font-size: 24px;
+      .titleText {
+        font-family: 'Fredoka One';
+      }
+    }
+
+    .themeButton {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      font-size: 32px;
+      transition: all 200ms ease;
+
+      &:hover {
+        transform: scale(1.2);
+      }
+
+      &:active {
+        transform: scale(0.95);
+      }
+    }
+  }
+}

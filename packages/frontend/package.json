@@ -26,7 +26,11 @@
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-parallax-tilt": "^1.7.57",
+    "react-router-dom": "6",
     "react-scripts": "5.0.1",
+    "react-use": "^17.4.0",
+    "sass": "^1.54.5",
     "web-vitals": "^2.1.0"
   },
   "devDependencies": {
