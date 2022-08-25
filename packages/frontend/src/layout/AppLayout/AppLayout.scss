@@ -5,11 +5,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding-bottom: 140px;
 
   .appLayout__content {
     display: grid;
     grid-template-columns: 300px 340px;
-    padding-bottom: 140px;
+    align-items: center;
+
     .appLayout__content {
       margin-left: 48px;
     }

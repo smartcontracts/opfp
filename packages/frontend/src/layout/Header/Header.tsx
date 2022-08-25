@@ -31,7 +31,7 @@ export const Header = () => {
         </li>
         <li>
           <p className="titleText">
-            <span className="red">(</span>
+            <span className="red">[</span>
             <span className="red">m</span>
             <span className="orange">a</span>
             <span className="yellow">g</span>
@@ -43,7 +43,7 @@ export const Header = () => {
             <span className="yellow">r</span>
             <span className="green">o</span>
             <span className="blue">r</span>
-            <span className="purple">)</span>
+            <span className="purple">]</span>
           </p>
         </li>
         <li>
