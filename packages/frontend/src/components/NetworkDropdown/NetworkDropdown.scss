@@ -45,13 +45,18 @@
       }
 
       .red {
-        background-color: rgb(255, 0, 0);
-        box-shadow: 0px 0px 5px 1.5px rgb(255, 0, 0);
+        background-color: var(--red);
+        box-shadow: 0px 0px 5px 1.5px var(--red);
       }
 
       .purple {
-        background-color: rgb(64, 131, 255);
-        box-shadow: 0px 0px 5px 1.5px rgb(64, 131, 255);
+        background-color: var(--blue);
+        box-shadow: 0px 0px 5px 1.5px var(--blue);
+      }
+
+      .yellow {
+        background-color: var(--yellow);
+        box-shadow: 0px 0px 5px 1.5px var(--yellow);
       }
     }
   }
@@ -90,12 +95,17 @@
   }
 
   .red {
-    background-color: rgb(255, 0, 0);
-    box-shadow: 0px 0px 5px 1.5px rgb(255, 0, 0);
+    background-color: var(--red);
+    box-shadow: 0px 0px 5px 1.5px var(--red);
   }
 
   .purple {
-    background-color: rgb(64, 131, 255);
-    box-shadow: 0px 0px 5px 1.5px rgb(64, 131, 255);
+    background-color: var(--blue);
+    box-shadow: 0px 0px 5px 1.5px var(--blue);
+  }
+
+  .yellow {
+    background-color: var(--yellow);
+    box-shadow: 0px 0px 5px 1.5px var(--yellow);
   }
 }

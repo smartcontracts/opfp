@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useEthers } from '@usedapp/core'
 import { useNavigate } from 'react-router-dom'
 
@@ -26,10 +26,11 @@ export const NFTPage = () => {
     setIsLoading(true)
   }
 
-  if (!account) {
-    navigate('/connect')
-    return null
-  }
+  useEffect(() => {
+    if (!account) {
+      navigate('/connect')
+    }
+  })
 
   const mirrorCardContent = (
     <img
@@ -75,53 +76,59 @@ export const NFTPage = () => {
     },
   ]
 
-  return (
-    <AppLayout
-      mirrorCard={
-        <MirrorCard
-          content={mirrorCardContent}
-          description={mirrorCardDescription}
-        />
-      }
-      content={
-        <div className="nftPage__content">
-          <NetworkDropdown />
-          <h1
-            onClick={() => {
-              setShowCheck(true)
-              navigator.clipboard.writeText(account)
-              setTimeout(() => {
-                setShowCheck(false)
-              }, 2000)
-            }}
-          >
-            {shortenAddress(account)} <CopyIcon showCheck={showCheck} />
-          </h1>
+  if (!account) {
+    return null
+  } else {
+    return (
+      <AppLayout
+        mirrorCard={
+          <MirrorCard
+            content={mirrorCardContent}
+            description={mirrorCardDescription}
+          />
+        }
+        content={
+          <div className="nftPage__content">
+            <NetworkDropdown />
+            <h1
+              onClick={() => {
+                setShowCheck(true)
+                navigator.clipboard.writeText(account)
+                setTimeout(() => {
+                  setShowCheck(false)
+                }, 2000)
+              }}
+            >
+              {shortenAddress(account)} <CopyIcon showCheck={showCheck} />
+            </h1>
 
-          {showNfts ? (
-            <div className="card__nftCardContainer">
-              {nfts.map((nft, index) => (
-                <NFTCard
-                  name={nft.name}
-                  img={nft.image}
-                  isActive={activeNFT === index}
-                  onClick={() => setActiveNFT(index === activeNFT ? -1 : index)}
-                />
-              ))}
-            </div>
-          ) : (
-            <div className="card__container">
-              {traits.map((trait) => (
-                <TraitCard name={trait.name} value={trait.value} />
-              ))}
-            </div>
-          )}
+            {showNfts ? (
+              <div className="card__nftCardContainer">
+                {nfts.map((nft, index) => (
+                  <NFTCard
+                    name={nft.name}
+                    img={nft.image}
+                    isActive={activeNFT === index}
+                    onClick={() =>
+                      setActiveNFT(index === activeNFT ? -1 : index)
+                    }
+                  />
+                ))}
+              </div>
+            ) : (
+              <div className="card__container">
+                {traits.map((trait) => (
+                  <TraitCard name={trait.name} value={trait.value} />
+                ))}
+              </div>
+            )}
 
-          <Button onClick={updateNFT} isLoading={isLoading}>
-            <span>Update NFT</span>
-          </Button>
-        </div>
-      }
-    ></AppLayout>
-  )
+            <Button onClick={updateNFT} isLoading={isLoading}>
+              <span>Update NFT</span>
+            </Button>
+          </div>
+        }
+      ></AppLayout>
+    )
+  }
 }

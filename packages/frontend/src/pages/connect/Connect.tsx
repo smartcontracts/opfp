@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { useEthers } from '@usedapp/core'
+import { useEffect } from 'react'
 
 import { MirrorCard } from '../../components/MirrorCard'
 import { AppLayout } from '../../layout/AppLayout/AppLayout'
@@ -14,9 +15,11 @@ export const Connect = () => {
   const { activateBrowserWallet, account } = useEthers()
   const navigate = useNavigate()
 
-  if (account) {
-    navigate('/nft')
-  }
+  useEffect(() => {
+    if (account) {
+      navigate('/nft')
+    }
+  })
 
   const mirrorCardContent = (
     <div className="connect__mirrorCardContent">

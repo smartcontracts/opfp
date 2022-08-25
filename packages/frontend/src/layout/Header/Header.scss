@@ -21,6 +21,16 @@
         font-weight: 800;
         letter-spacing: 1px;
         color: var(--primary-color);
+        cursor: pointer;
+        transition: all 200ms ease;
+
+        &:hover {
+          transform: scale(1.03);
+        }
+
+        &:active {
+          transform: scale(0.97);
+        }
 
         .red {
           color: var(--red);

@@ -1,8 +1,12 @@
+import { useNavigate } from 'react-router-dom'
+
 import { paletteEmojis, palettes, paletteKeys, themes } from '../../constants'
 import { useTheme } from '../../hooks/useTheme'
+
 import './Header.scss'
 
 export const Header = () => {
+  const navigate = useNavigate()
   const { theme, setTheme, paletteIndex, setPaletteIndex } = useTheme()
 
   const toggleTheme = () => {
@@ -30,7 +34,12 @@ export const Header = () => {
           </button>
         </li>
         <li>
-          <p className="titleText">
+          <p
+            className="titleText"
+            onClick={() => {
+              navigate('/')
+            }}
+          >
             <span className="red"></span>
             <span className="red">M</span>
             <span className="orange">a</span>
