@@ -1,0 +1,20 @@
+.traitCard__container {
+  padding: 12px;
+  border-radius: 12px;
+  background-color: rgba(var(--secondary-color-rgb), 0.2);
+  border: 2px solid rgba(var(--secondary-color-rgb), 1);
+  color: var(--secondary-color);
+  box-shadow: 0px 0px 5px rgba(var(--secondary-color-rgb), 0.8);
+  white-space: wrap;
+
+  .name {
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: 4px;
+  }
+
+  .value {
+    font-size: 16px;
+    font-weight: 600;
+  }
+}

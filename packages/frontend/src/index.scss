@@ -1,0 +1,214 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+$grey-0: #f1f1ff;
+$grey-100: #e0dfdf;
+$grey-100: #dddddd;
+$grey-200: #cccccc;
+$grey-300: #acacac;
+$grey-400: #8e8e8e;
+$grey-500: #4d4d4e;
+$grey-600: #373737;
+$grey-700: #272727;
+$grey-800: #1a1a23;
+$grey-900: #080915;
+$black: #080915;
+
+$pink-light: #ff51ce;
+$pink-dark: #ffb0ee;
+
+$red-light: #ff0000;
+$red-dark: #ff1f1f;
+$orange-light: #ff8000;
+$orange-dark: #ff9500;
+$yellow-light: #efa700;
+$yellow-dark: #ffc800;
+$green-light: #62b300;
+$green-dark: #90db5e;
+$forest-green-light: #009900;
+$forest-green-dark: #00ba00;
+$light-blue-light: #0086b6;
+$light-blue-dark: #ace1f4;
+$blue-light: #00bceb;
+$blue-dark: #00bbff;
+$grape-light: #ff0077;
+$grape-dark: #ff5ca5;
+$purple-light: #e032ff;
+$purple-dark: #e75eff;
+$alien-light: #00cb9b;
+$alien-dark: #00ffcc;
+
+$mirror-card-background-gradient-light: linear-gradient(
+  140deg,
+  #ffffff,
+  #dcddde
+);
+$mirror-card-background-gradient-dark: linear-gradient(
+  -140deg,
+  #323234,
+  #191818
+);
+$mirror-border-color-light: $grey-100;
+$mirror-border-color-dark: $grey-600;
+
+body {
+  @function hexToRGB($hex) {
+    @return red($hex), green($hex), blue($hex);
+  }
+
+  &.light {
+    background-color: $grey-0;
+    --text-color: #{$grey-600};
+    --card: #{$grey-0};
+    --drop-shadow: #{hexToRGB($grey-600)};
+    --pink: #{$pink-light};
+    --pink-rgb: #{hexToRGB($pink-light)};
+    --yellow: #{$yellow-light};
+    --yellow-rgb: #{hexToRGB($yellow-light)};
+    --green: #{$green-light};
+    --green-rgb: #{hexToRGB($green-light)};
+    --blue: #{$blue-light};
+    --blue-rgb: #{hexToRGB($blue-light)};
+    --purple: #{$purple-light};
+    --purple-rgb: #{hexToRGB($purple-light)};
+    --orange: #{$orange-light};
+    --orange-rgb: #{hexToRGB($orange-light)};
+    --red: #{$red-light};
+    --red-rgb: #{hexToRGB($red-light)};
+    --forest: #{$forest-green-light};
+    --forest-rgb: #{hexToRGB($forest-green-light)};
+    --light-blue: #{$light-blue-light};
+    --light-blue-rgb: #{hexToRGB($light-blue-light)};
+    --bone: #{$grey-600};
+    --bone-rgb: #{hexToRGB($grey-600)};
+    --grape: #{$grape-light};
+    --grape-rgb: #{hexToRGB($grape-light)};
+    --alien: #{$alien-light};
+    --alien-rgb: #{hexToRGB($alien-light)};
+    --mirror-card-bg: #{$mirror-card-background-gradient-light};
+    --mirror-border-color: #{$mirror-border-color-light};
+    --badge-border-color: #{$grey-100};
+    --badge-bg-color: #{$grey-0};
+    --badge-text-color: #{$grey-500};
+  }
+
+  &.dark {
+    background-color: $black;
+    --text-color: #{$grey-0};
+    --card: #{$grey-800};
+    --drop-shadow: #{hexToRGB($grey-100)};
+    --pink: #{$pink-dark};
+    --pink-rgb: #{hexToRGB($pink-dark)};
+    --yellow: #{$yellow-dark};
+    --yellow-rgb: #{hexToRGB($yellow-dark)};
+    --green: #{$green-dark};
+    --green-rgb: #{hexToRGB($green-dark)};
+    --blue: #{$blue-dark};
+    --blue-rgb: #{hexToRGB($blue-dark)};
+    --purple: #{$purple-dark};
+    --purple-rgb: #{hexToRGB($purple-dark)};
+    --orange: #{$orange-dark};
+    --orange-rgb: #{hexToRGB($orange-dark)};
+    --red: #{$red-dark};
+    --red-rgb: #{hexToRGB($red-dark)};
+    --forest: #{$forest-green-dark};
+    --forest-rgb: #{hexToRGB($forest-green-dark)};
+    --light-blue: #{$light-blue-dark};
+    --light-blue-rgb: #{hexToRGB($light-blue-dark)};
+    --bone: #{$grey-200};
+    --bone-rgb: #{hexToRGB($grey-200)};
+    --grape: #{$grape-dark};
+    --grape-rgb: #{hexToRGB($grape-dark)};
+    --alien: #{$alien-dark};
+    --alien-rgb: #{hexToRGB($alien-dark)};
+    --mirror-card-bg: #{$mirror-card-background-gradient-dark};
+    --mirror-border-color: #{$mirror-border-color-dark};
+    --badge-border-color: #{$grey-700};
+    --badge-bg-color: #{$grey-800};
+    --badge-text-color: #{$grey-100};
+  }
+
+  &.FLOWER {
+    --primary-color: var(--pink);
+    --primary-color-rgb: var(--pink-rgb);
+    --secondary-color: var(--yellow);
+    --secondary-color-rgb: var(--yellow-rgb);
+  }
+
+  &.SUNFLOWER {
+    --primary-color: var(--yellow);
+    --primary-color-rgb: var(--yellow-rgb);
+    --secondary-color: var(--green);
+    --secondary-color-rgb: var(--green-rgb);
+  }
+
+  &.STRAWBERRY {
+    --primary-color: var(--red);
+    --primary-color-rgb: var(--red-rgb);
+    --secondary-color: var(--green);
+    --secondary-color-rgb: var(--green-rgb);
+  }
+
+  &.PUMPKIN {
+    --primary-color: var(--orange);
+    --primary-color-rgb: var(--orange-rgb);
+    --secondary-color: var(--yellow);
+    --secondary-color-rgb: var(--yellow-rgb);
+  }
+
+  &.BROCCOLI {
+    --primary-color: var(--forest);
+    --primary-color-rgb: var(--forest-rgb);
+    --secondary-color: var(--green);
+    --secondary-color-rgb: var(--green-rgb);
+  }
+
+  &.WATER {
+    --primary-color: var(--blue);
+    --primary-color-rgb: var(--blue-rgb);
+    --secondary-color: var(--light-blue);
+    --secondary-color-rgb: var(--light-blue-rgb);
+  }
+
+  &.GRAPE {
+    --primary-color: var(--grape);
+    --primary-color-rgb: var(--grape-rgb);
+    --secondary-color: var(--purple);
+    --secondary-color-rgb: var(--purple-rgb);
+  }
+
+  &.BONE {
+    --primary-color: var(--bone);
+    --primary-color-rgb: var(--bone-rgb);
+    --secondary-color: var(--bone);
+    --secondary-color-rgb: var(--bone-rgb);
+  }
+
+  &.ALIEN {
+    --primary-color: var(--alien);
+    --primary-color-rgb: var(--alien-rgb);
+    --secondary-color: var(--alien);
+    --secondary-color-rgb: var(--alien-rgb);
+  }
+}
+
+body {
+  margin: 0;
+  font-family: 'Rubik', 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
+    'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--text-color);
+  transition: all 777ms ease;
+}

@@ -1,0 +1,116 @@
+.nftPage__mirrorCardDescription {
+  font-size: 14px;
+  font-weight: 500;
+  padding: 0px 12px;
+  margin-top: -14px;
+
+  .title {
+    color: var(--text-color);
+    text-shadow: var(--text-color) 0px 0px 7px;
+    font-weight: 600;
+    font-size: 18px;
+    font-style: italic;
+    margin-bottom: 12px;
+  }
+
+  .row {
+    color: var(--secondary-color);
+    text-shadow: var(--secondary-color) 0px 0px 7px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 8px 0;
+
+    .name {
+      font-weight: 500;
+      color: var(--primary-color);
+      text-shadow: var(--primary-color) 0px 0px 7px;
+    }
+  }
+}
+
+.nftPage__content {
+  @media screen and (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  h3 {
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.8px;
+    font-style: italic;
+    padding: 8px 12px;
+    border-radius: 100px;
+    width: fit-content;
+    margin-bottom: 8px;
+
+    border: 1px solid var(--badge-border-color);
+    background-color: var(--badge-bg-color);
+    color: var(--badge-text-color);
+
+    .dot {
+      height: 4px;
+      width: 4px;
+      border-radius: 100px;
+      background-color: rgb(255, 0, 0);
+      box-shadow: 0px 0px 5px 1.5px rgb(255, 0, 0);
+      margin-right: 6px;
+    }
+  }
+
+  h1 {
+    color: var(--primary-color);
+    text-shadow: var(--primary-color) 0px 0px 10px;
+  }
+  .card__container {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(100px, 140px));
+    grid-gap: 8px;
+    margin: 16px 0px;
+  }
+
+  .card__nftCardContainer {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 16px 0px;
+    height: 300px;
+    overflow-y: scroll;
+    /* width */
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background: var(--primary-color);
+      border-radius: 100px;
+      // box-shadow: 0px 0px 5px 1.5px var(--primary-color);
+    }
+
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+      background: var(--secondary-color);
+      cursor: pointer;
+    }
+
+    > :nth-child(odd) {
+      margin-right: 16px;
+      margin-bottom: 16px;
+    }
+
+    > :nth-child(even) {
+      margin-bottom: 16px;
+      margin-bottom: 16px;
+    }
+  }
+}
