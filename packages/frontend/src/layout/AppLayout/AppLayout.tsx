@@ -8,8 +8,10 @@ interface AppLayoutProps {
 export const AppLayout = ({ mirrorCard, content }: AppLayoutProps) => {
   return (
     <div className="appLayout__container">
-      {mirrorCard}
-      <div className="appLayout__content">{content}</div>
+      <div className="appLayout__content">
+        {mirrorCard}
+        <div className="appLayout__content">{content}</div>
+      </div>
     </div>
   )
 }
