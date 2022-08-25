@@ -4,6 +4,7 @@ import { Routes, Route } from 'react-router-dom'
 import { Connect } from './pages/connect'
 import { Header } from './layout/Header/Header'
 import { Home } from './pages/home'
+import { NFTPage } from './pages/nft'
 // import { Footer } from './layout/Footer/Footer'
 
 const App = () => {
@@ -13,7 +14,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/connect" element={<Connect />} />
-        <Route path="/contact" element={<h1>Contact</h1>} />
+        <Route path="/nft" element={<NFTPage />} />
       </Routes>
       {/* <Footer /> */}
     </div>

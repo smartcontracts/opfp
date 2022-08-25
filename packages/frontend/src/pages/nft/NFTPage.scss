@@ -1,0 +1,32 @@
+.nftPage__mirrorCardDescription {
+  font-size: 14px;
+  font-weight: 500;
+  padding: 0px 12px;
+
+  .title {
+    color: var(--text-color);
+    text-shadow: var(--text-color) 0px 0px 7px;
+    font-weight: 600;
+    font-size: 18px;
+    font-style: italic;
+    margin-bottom: 12px;
+  }
+
+  .row {
+    color: var(--primary-color);
+    text-shadow: var(--primary-color) 0px 0px 7px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 8px 0;
+  }
+}
+
+.nftPage__content {
+  .card__container {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(100px, 140px));
+    grid-gap: 8px;
+    margin: 16px 0px;
+  }
+}

@@ -2,7 +2,7 @@ import './Button.scss'
 
 interface ButtonProps {
   children: React.ReactNode
-  onClick: () => void
+  onClick?: () => void
 }
 
 export const Button = ({ children, onClick }: ButtonProps) => {

@@ -1,59 +1,56 @@
+import { useNavigate } from 'react-router-dom'
+
 import { Button } from '../../components/Button'
 import { MirrorCard } from '../../components/MirrorCard'
-import { TraitCard } from '../../components/TraitCard'
 import { AppLayout } from '../../layout/AppLayout/AppLayout'
 import './Home.scss'
 
 export const Home = () => {
-  const traits = [
-    {
-      name: 'background',
-      value: 'yellow',
-    },
-    {
-      name: 'helmet',
-      value: 'flower',
-    },
-    {
-      name: 'visor',
-      value: 'sky',
-    },
-    {
-      name: 'chain',
-      value: 'silver',
-    },
-    {
-      name: 'body',
-      value: 'robotaskj aksks hvh ',
-    },
-    {
-      name: 'outfit',
-      value: 'camo tee blah blah',
-    },
-  ]
+  const navigate = useNavigate()
+  const mirrorCardContent = <div className="home__mirrorCardContent"></div>
+  const mirrorCardDescription = (
+    <div className="home__mirrorCardDescription">
+      <p>Welcome to the magic mirror.</p>
+    </div>
+  )
 
-  const updateNFT = () => {
-    console.log('updateNFT')
-  }
+  const homeContent = (
+    <div className="home__content">
+      <p>
+        The Magic Mirror allows you to mirror your Optimism NFTs on Ethereum so
+        you can display them on apps like Twitter that don't yet support
+        Opitmism NFTs natively.
+      </p>
+      <p>
+        Once you connect your wallet, you'll first be prompted to mint a Magic
+        Mirror NFT on Ethereum. You only need to do this once per address.
+      </p>
+      <p>
+        After you've minted your Magic Mirror NFT, you can select an Optimism
+        NFT to put inside of the Magic Mirror. You can only put one NFT inside
+        of the Magic Mirror at a time, but you can update your mirrored NFT
+        whenever you want.
+      </p>
+      <Button
+        onClick={() => {
+          navigate('/connect')
+        }}
+      >
+        Continue...
+      </Button>
+    </div>
+  )
 
   return (
     <div className="home__container">
       <AppLayout
-        mirrorCard={<MirrorCard />}
-        content={
-          <div className="home__content">
-            <h3>Optimism</h3>
-            <h1>0x123...123</h1>
-            <div className="card__container">
-              {traits.map((trait) => (
-                <TraitCard name={trait.name} value={trait.value} />
-              ))}
-            </div>
-            <Button onClick={updateNFT}>
-              <span>Update NFT</span>
-            </Button>
-          </div>
+        mirrorCard={
+          <MirrorCard
+            content={mirrorCardContent}
+            description={mirrorCardDescription}
+          />
         }
+        content={homeContent}
       />
     </div>
   )

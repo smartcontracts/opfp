@@ -13,7 +13,9 @@ code {
 }
 
 $black: #080915;
+$moreLightGrey: #e0dfdf;
 $light-grey: #c1c1c1;
+$lessDarkGrey: #373737;
 $dark-grey: #171623;
 $white: #f1f1ff;
 
@@ -33,6 +35,19 @@ $blue-dark: #00ccff;
 $purple-light: #a600ff;
 $purple-dark: #8900d3;
 
+$mirror-card-background-gradient-light: linear-gradient(
+  140deg,
+  #ffffff,
+  #dcddde
+);
+$mirror-card-background-gradient-dark: linear-gradient(
+  -140deg,
+  #323234,
+  #191818
+);
+$mirror-border-color-light: $moreLightGrey;
+$mirror-border-color-dark: $lessDarkGrey;
+
 body {
   @function hexToRGB($hex) {
     @return red($hex), green($hex), blue($hex);
@@ -40,9 +55,9 @@ body {
 
   &.light {
     background-color: $white;
-    --text-color: #{$black};
+    --text-color: #{$lessDarkGrey};
     --card: #{$white};
-    --drop-shadow: #{hexToRGB($light-grey)};
+    --drop-shadow: #{hexToRGB($lessDarkGrey)};
     --pink: #{$pink-light};
     --pink-rgb: #{hexToRGB($pink-light)};
     --yellow: #{$yellow-light};
@@ -59,13 +74,15 @@ body {
     --red-rgb: #{hexToRGB($red-light)};
     --bone: #{$dark-grey};
     --bone-rgb: #{hexToRGB($dark-grey)};
+    --mirror-card-bg: #{$mirror-card-background-gradient-light};
+    --mirror-border-color: #{$mirror-border-color-light};
   }
 
   &.dark {
     background-color: $black;
     --text-color: #{$white};
     --card: #{$dark-grey};
-    --drop-shadow: #{hexToRGB($white)};
+    --drop-shadow: #{hexToRGB($moreLightGrey)};
     --pink: #{$pink-dark};
     --pink-rgb: #{hexToRGB($pink-dark)};
     --yellow: #{$yellow-dark};
@@ -82,6 +99,8 @@ body {
     --red-rgb: #{hexToRGB($red-dark)};
     --bone: #{$light-grey};
     --bone-rgb: #{hexToRGB($light-grey)};
+    --mirror-card-bg: #{$mirror-card-background-gradient-dark};
+    --mirror-border-color: #{$mirror-border-color-dark};
   }
 
   &.FLOWER {

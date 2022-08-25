@@ -1,0 +1,8 @@
+.home__content {
+  .card__container {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(100px, 140px));
+    grid-gap: 8px;
+    margin: 16px 0px;
+  }
+}

@@ -1,8 +1,107 @@
-.connect__container {
+.mirrorCard__description {
+  .connect__mirrorCardDescription {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 700;
+    text-shadow: 0px 0px 5px var(--text-color);
+    margin-top: 14px;
+  }
+}
+
+.mirrorCard__content {
+  position: relative;
+  .connect__mirrorCardContent {
+    background: linear-gradient(
+      124deg,
+      #ff2400,
+      #e81d1d,
+      #e8b71d,
+      #e3e81d,
+      #1de840,
+      #1ddde8,
+      #2b1de8,
+      #dd00f3,
+      #dd00f3
+    );
+
+    animation: rainbow 7s ease infinite;
+    background-size: 1000% 1000%;
+  }
+}
+
+@keyframes rainbow {
+  0% {
+    background-position: 0% 82%;
+  }
+  50% {
+    background-position: 100% 19%;
+  }
+  100% {
+    background-position: 0% 82%;
+  }
+}
+
+.connect__content {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-  min-height: calc(100vh - 240px);
-  padding-bottom: 140px;
+  flex-direction: column;
+
+  .connect__button {
+    padding: 24px;
+    border-radius: 24px;
+    border: none;
+    color: white;
+    font-size: 22px;
+    font-family: 'Rubik', sans-serif;
+    font-weight: 800;
+    font-style: italic;
+    cursor: pointer;
+    transition: all 200ms ease;
+
+    &:not(:last-child) {
+      margin-bottom: 18px;
+    }
+
+    &:hover {
+      transform: scale(1.03);
+    }
+
+    &:active {
+      transform: scale(0.96);
+    }
+
+    .wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+
+      img {
+        height: 32px;
+        width: 32px;
+        margin-right: 16px;
+      }
+    }
+  }
+
+  .metamask {
+    background: linear-gradient(-267.54deg, #ffdc24 1.63%, #ff5c00 98.05%);
+    box-shadow: 0px 0px 20px #ffda24c2;
+  }
+
+  .mobile {
+    background: linear-gradient(
+      -267.56deg,
+      rgb(5, 0, 255) 0%,
+      rgb(143, 0, 255) 97.07%
+    );
+    box-shadow: 0px 0px 20px rgb(5, 0, 255);
+  }
+
+  .coinbase {
+    background: linear-gradient(
+      -267.56deg,
+      rgb(0, 82, 255) 0%,
+      rgb(55, 115, 245) 97.07%
+    );
+    box-shadow: 0px 0px 20px rgb(0, 82, 255);
+  }
 }
