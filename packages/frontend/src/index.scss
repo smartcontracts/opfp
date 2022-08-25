@@ -44,9 +44,10 @@ $blue-light: #00bceb;
 $blue-dark: #00bbff;
 $grape-light: #ff0077;
 $grape-dark: #ff5ca5;
-
 $purple-light: #e032ff;
 $purple-dark: #e75eff;
+$alien-light: #00cb9b;
+$alien-dark: #00ffcc;
 
 $mirror-card-background-gradient-light: linear-gradient(
   140deg,
@@ -93,6 +94,8 @@ body {
     --bone-rgb: #{hexToRGB($grey-600)};
     --grape: #{$grape-light};
     --grape-rgb: #{hexToRGB($grape-light)};
+    --alien: #{$alien-light};
+    --alien-rgb: #{hexToRGB($alien-light)};
     --mirror-card-bg: #{$mirror-card-background-gradient-light};
     --mirror-border-color: #{$mirror-border-color-light};
     --badge-border-color: #{$grey-100};
@@ -127,6 +130,8 @@ body {
     --bone-rgb: #{hexToRGB($grey-200)};
     --grape: #{$grape-dark};
     --grape-rgb: #{hexToRGB($grape-dark)};
+    --alien: #{$alien-dark};
+    --alien-rgb: #{hexToRGB($alien-dark)};
     --mirror-card-bg: #{$mirror-card-background-gradient-dark};
     --mirror-border-color: #{$mirror-border-color-dark};
     --badge-border-color: #{$grey-700};
@@ -188,6 +193,13 @@ body {
     --primary-color-rgb: var(--bone-rgb);
     --secondary-color: var(--bone);
     --secondary-color-rgb: var(--bone-rgb);
+  }
+
+  &.ALIEN {
+    --primary-color: var(--alien);
+    --primary-color-rgb: var(--alien-rgb);
+    --secondary-color: var(--alien);
+    --secondary-color-rgb: var(--alien-rgb);
   }
 }
 

@@ -6,11 +6,23 @@
   align-items: center;
   justify-content: center;
   padding-bottom: 140px;
+  @media screen and (max-width: 768px) {
+    padding-bottom: 80px;
+  }
 
   .appLayout__content {
     display: grid;
     grid-template-columns: 300px 340px;
     align-items: center;
+
+    @media screen and (max-width: 768px) {
+      grid-template-columns: 300px;
+
+      .appLayout__content {
+        margin-left: 0 !important;
+        margin-top: 48px;
+      }
+    }
 
     .appLayout__content {
       margin-left: 48px;

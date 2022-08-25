@@ -2,6 +2,7 @@
   font-size: 14px;
   font-weight: 500;
   padding: 0px 12px;
+  margin-top: -14px;
 
   .title {
     color: var(--text-color);
@@ -30,6 +31,12 @@
 }
 
 .nftPage__content {
+  @media screen and (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
   h3 {
     display: flex;
     align-items: center;
@@ -65,5 +72,45 @@
     grid-template-columns: repeat(2, minmax(100px, 140px));
     grid-gap: 8px;
     margin: 16px 0px;
+  }
+
+  .card__nftCardContainer {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 16px 0px;
+    height: 300px;
+    overflow-y: scroll;
+    /* width */
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    /* Track */
+    &::-webkit-scrollbar-track {
+      background-color: transparent;
+    }
+
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background: var(--primary-color);
+      border-radius: 100px;
+      // box-shadow: 0px 0px 5px 1.5px var(--primary-color);
+    }
+
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+      background: var(--secondary-color);
+      cursor: pointer;
+    }
+
+    > :nth-child(odd) {
+      margin-right: 16px;
+      margin-bottom: 16px;
+    }
+
+    > :nth-child(even) {
+      margin-bottom: 16px;
+      margin-bottom: 16px;
+    }
   }
 }

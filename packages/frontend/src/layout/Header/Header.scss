@@ -1,6 +1,10 @@
 .header__container {
   padding: 24px;
   margin-bottom: 80px;
+
+  @media screen and (max-width: 768px) {
+    margin-bottom: 16px;
+  }
   .header__nav {
     display: flex;
     align-items: center;
@@ -8,6 +12,9 @@
     list-style-type: none;
 
     li {
+      @media screen and (max-width: 768px) {
+        font-size: 22px;
+      }
       font-size: 32px;
       .titleText {
         font-family: 'Rubik';
