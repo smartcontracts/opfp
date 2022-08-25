@@ -11,6 +11,7 @@ import './NFTPage.scss'
 export const NFTPage = () => {
   const [showNfts, setShowNfts] = useState(false)
   const [activeNFT, setActiveNFT] = useState(-1)
+  const [isLoading, setIsLoading] = useState(false)
 
   const mirrorCardContent = (
     <img
@@ -85,6 +86,7 @@ export const NFTPage = () => {
 
   const updateNFT = () => {
     setShowNfts(!showNfts)
+    setIsLoading(true)
   }
 
   return (
@@ -121,7 +123,7 @@ export const NFTPage = () => {
             </div>
           )}
 
-          <Button onClick={updateNFT}>
+          <Button onClick={updateNFT} isLoading={isLoading}>
             <span>Update NFT</span>
           </Button>
         </div>
