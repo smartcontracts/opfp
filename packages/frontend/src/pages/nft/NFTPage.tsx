@@ -10,6 +10,7 @@ import { AppLayout } from '../../layout/AppLayout/AppLayout'
 import './NFTPage.scss'
 import { shortenAddress } from '../../helpers'
 import { CopyIcon } from '../../components/CopyIcon/CopyIcon'
+import { NetworkDropdown } from '../../components/NetworkDropdown/NetworkDropdown'
 
 export const NFTPage = () => {
   const [showNfts, setShowNfts] = useState(false)
@@ -19,6 +20,16 @@ export const NFTPage = () => {
   const { account } = useEthers()
   const navigate = useNavigate()
   const [showCheck, setShowCheck] = useState(false)
+
+  const updateNFT = () => {
+    setShowNfts(!showNfts)
+    setIsLoading(true)
+  }
+
+  if (!account) {
+    navigate('/connect')
+    return null
+  }
 
   const mirrorCardContent = (
     <img
@@ -54,22 +65,6 @@ export const NFTPage = () => {
       name: 'helmet',
       value: 'flower',
     },
-    {
-      name: 'visor',
-      value: 'sky',
-    },
-    {
-      name: 'chain',
-      value: 'silver',
-    },
-    {
-      name: 'body',
-      value: 'robotaskj aksks hvh ',
-    },
-    {
-      name: 'outfit',
-      value: 'camo tee blah blah',
-    },
   ]
 
   const nfts = [
@@ -78,28 +73,7 @@ export const NFTPage = () => {
       image:
         'https://quixotic.io/_next/image?url=https%3A%2F%2Ffanbase-1.s3.amazonaws.com%2Fnft_image%2F0x5c9D55b78FEBCC2061715BA4f57EcF8EA2711F2c%2F3539%2F1659352981%2Fimage.png&w=2048&q=75',
     },
-
-    {
-      name: 'Magic Mirror',
-      image:
-        'https://quixotic.io/_next/image?url=https%3A%2F%2Ffanbase-1.s3.amazonaws.com%2Fnft_image%2F0x5c9D55b78FEBCC2061715BA4f57EcF8EA2711F2c%2F3539%2F1659352981%2Fimage.png&w=2048&q=75',
-    },
-    {
-      name: 'Magic Mirror',
-      image:
-        'https://quixotic.io/_next/image?url=https%3A%2F%2Ffanbase-1.s3.amazonaws.com%2Fnft_image%2F0x5c9D55b78FEBCC2061715BA4f57EcF8EA2711F2c%2F3539%2F1659352981%2Fimage.png&w=2048&q=75',
-    },
   ]
-
-  const updateNFT = () => {
-    setShowNfts(!showNfts)
-    setIsLoading(true)
-  }
-
-  if (!account) {
-    navigate('/connect')
-    return null
-  }
 
   return (
     <AppLayout
@@ -111,9 +85,7 @@ export const NFTPage = () => {
       }
       content={
         <div className="nftPage__content">
-          <h3>
-            <div className="dot"></div> Optimism
-          </h3>
+          <NetworkDropdown />
           <h1
             onClick={() => {
               setShowCheck(true)

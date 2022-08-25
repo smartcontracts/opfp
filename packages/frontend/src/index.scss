@@ -13,6 +13,7 @@ code {
 }
 
 $grey-0: #f1f1ff;
+$grey-50: #e9e9ed;
 $grey-100: #e0dfdf;
 $grey-100: #dddddd;
 $grey-200: #cccccc;
@@ -21,6 +22,7 @@ $grey-400: #8e8e8e;
 $grey-500: #4d4d4e;
 $grey-600: #373737;
 $grey-700: #272727;
+$grey-750: #222222;
 $grey-800: #1a1a23;
 $grey-900: #080915;
 $black: #080915;
@@ -71,6 +73,8 @@ body {
     background-color: $grey-0;
     --text-color: #{$grey-600};
     --card: #{$grey-0};
+    --card-hover: #{$grey-100};
+    --card-active: #{$grey-200};
     --drop-shadow: #{hexToRGB($grey-600)};
     --pink: #{$pink-light};
     --pink-rgb: #{hexToRGB($pink-light)};
@@ -100,6 +104,8 @@ body {
     --mirror-border-color: #{$mirror-border-color-light};
     --badge-border-color: #{$grey-100};
     --badge-bg-color: #{$grey-0};
+    --badge-bg-hover: #{$grey-50};
+    --badge-bg-active: #{$grey-100};
     --badge-text-color: #{$grey-500};
   }
 
@@ -107,6 +113,8 @@ body {
     background-color: $black;
     --text-color: #{$grey-0};
     --card: #{$grey-800};
+    --card-hover: #{$grey-700};
+    --card-active: #{$grey-600};
     --drop-shadow: #{hexToRGB($grey-100)};
     --pink: #{$pink-dark};
     --pink-rgb: #{hexToRGB($pink-dark)};
@@ -136,6 +144,8 @@ body {
     --mirror-border-color: #{$mirror-border-color-dark};
     --badge-border-color: #{$grey-700};
     --badge-bg-color: #{$grey-800};
+    --badge-bg-hover: #{$grey-750};
+    --badge-bg-active: #{$grey-700};
     --badge-text-color: #{$grey-100};
   }
 
