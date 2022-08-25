@@ -31,19 +31,19 @@ export const Header = () => {
         </li>
         <li>
           <p className="titleText">
-            <span className="red">[</span>
-            <span className="red">m</span>
+            <span className="red"></span>
+            <span className="red">M</span>
             <span className="orange">a</span>
             <span className="yellow">g</span>
             <span className="green">i</span>
-            <span className="blue">c</span> {` `}
-            <span className="purple">m</span>
+            <span className="blue">c</span>
+            <span className="purple">M</span>
             <span className="red">i</span>
             <span className="orange">r</span>
             <span className="yellow">r</span>
             <span className="green">o</span>
             <span className="blue">r</span>
-            <span className="purple">]</span>
+            <span className="purple"></span>
           </p>
         </li>
         <li>

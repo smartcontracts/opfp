@@ -1,6 +1,7 @@
 .button__container {
   background-color: var(--primary-color);
   color: var(--card);
+  text-shadow: 0px 0px 1.69px var(--card);
   box-shadow: 0px 0px 30px rgba(var(--primary-color-rgb), 0.8);
   border-radius: 18px;
   border: none;

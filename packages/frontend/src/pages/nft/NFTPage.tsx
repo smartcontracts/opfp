@@ -16,15 +16,15 @@ export const NFTPage = () => {
     <div className="nftPage__mirrorCardDescription">
       <p className="title">Magic Mirror NFT</p>
       <div className="row">
-        <p>Contract</p>
+        <p className="name">Contract</p>
         <p>0x123...123</p>
       </div>
       <div className="row">
-        <p>Token ID</p>
+        <p className="name">Token ID</p>
         <p>123123...</p>
       </div>
       <div className="row">
-        <p>Last updated</p>
+        <p className="name">Last updated</p>
         <p>1 day ago</p>
       </div>
     </div>
@@ -71,7 +71,9 @@ export const NFTPage = () => {
       }
       content={
         <div className="nftPage__content">
-          <h3>Optimism</h3>
+          <h3>
+            <div className="dot"></div> Optimism
+          </h3>
           <h1>0x123...123</h1>
           <div className="card__container">
             {traits.map((trait) => (

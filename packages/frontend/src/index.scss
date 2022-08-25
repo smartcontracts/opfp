@@ -12,28 +12,41 @@ code {
   padding: 0;
 }
 
+$grey-0: #f1f1ff;
+$grey-100: #e0dfdf;
+$grey-100: #dddddd;
+$grey-200: #cccccc;
+$grey-300: #acacac;
+$grey-400: #8e8e8e;
+$grey-500: #4d4d4e;
+$grey-600: #373737;
+$grey-700: #272727;
+$grey-800: #1a1a23;
+$grey-900: #080915;
 $black: #080915;
-$moreLightGrey: #e0dfdf;
-$light-grey: #c1c1c1;
-$lessDarkGrey: #373737;
-$dark-grey: #171623;
-$white: #f1f1ff;
 
-$pink-light: #ff69d5;
-$pink-dark: #ff3288;
+$pink-light: #ff51ce;
+$pink-dark: #ffb0ee;
 
 $red-light: #ff0000;
-$red-dark: #ca0000;
+$red-dark: #ff1f1f;
 $orange-light: #ff8000;
-$orange-dark: #e77f00;
-$yellow-light: #ffcc00;
-$yellow-dark: #e1b400;
-$green-light: #00ff00;
-$green-dark: #00ca00;
-$blue-light: #00acd6;
-$blue-dark: #00ccff;
-$purple-light: #a600ff;
-$purple-dark: #8900d3;
+$orange-dark: #ff9500;
+$yellow-light: #efa700;
+$yellow-dark: #ffc800;
+$green-light: #62b300;
+$green-dark: #90db5e;
+$forest-green-light: #009900;
+$forest-green-dark: #00ba00;
+$light-blue-light: #0086b6;
+$light-blue-dark: #ace1f4;
+$blue-light: #00bceb;
+$blue-dark: #00bbff;
+$grape-light: #ff0077;
+$grape-dark: #ff5ca5;
+
+$purple-light: #e032ff;
+$purple-dark: #e75eff;
 
 $mirror-card-background-gradient-light: linear-gradient(
   140deg,
@@ -45,8 +58,8 @@ $mirror-card-background-gradient-dark: linear-gradient(
   #323234,
   #191818
 );
-$mirror-border-color-light: $moreLightGrey;
-$mirror-border-color-dark: $lessDarkGrey;
+$mirror-border-color-light: $grey-100;
+$mirror-border-color-dark: $grey-600;
 
 body {
   @function hexToRGB($hex) {
@@ -54,10 +67,10 @@ body {
   }
 
   &.light {
-    background-color: $white;
-    --text-color: #{$lessDarkGrey};
-    --card: #{$white};
-    --drop-shadow: #{hexToRGB($lessDarkGrey)};
+    background-color: $grey-0;
+    --text-color: #{$grey-600};
+    --card: #{$grey-0};
+    --drop-shadow: #{hexToRGB($grey-600)};
     --pink: #{$pink-light};
     --pink-rgb: #{hexToRGB($pink-light)};
     --yellow: #{$yellow-light};
@@ -72,17 +85,26 @@ body {
     --orange-rgb: #{hexToRGB($orange-light)};
     --red: #{$red-light};
     --red-rgb: #{hexToRGB($red-light)};
-    --bone: #{$dark-grey};
-    --bone-rgb: #{hexToRGB($dark-grey)};
+    --forest: #{$forest-green-light};
+    --forest-rgb: #{hexToRGB($forest-green-light)};
+    --light-blue: #{$light-blue-light};
+    --light-blue-rgb: #{hexToRGB($light-blue-light)};
+    --bone: #{$grey-600};
+    --bone-rgb: #{hexToRGB($grey-600)};
+    --grape: #{$grape-light};
+    --grape-rgb: #{hexToRGB($grape-light)};
     --mirror-card-bg: #{$mirror-card-background-gradient-light};
     --mirror-border-color: #{$mirror-border-color-light};
+    --badge-border-color: #{$grey-100};
+    --badge-bg-color: #{$grey-0};
+    --badge-text-color: #{$grey-500};
   }
 
   &.dark {
     background-color: $black;
-    --text-color: #{$white};
-    --card: #{$dark-grey};
-    --drop-shadow: #{hexToRGB($moreLightGrey)};
+    --text-color: #{$grey-0};
+    --card: #{$grey-800};
+    --drop-shadow: #{hexToRGB($grey-100)};
     --pink: #{$pink-dark};
     --pink-rgb: #{hexToRGB($pink-dark)};
     --yellow: #{$yellow-dark};
@@ -97,51 +119,75 @@ body {
     --orange-rgb: #{hexToRGB($orange-dark)};
     --red: #{$red-dark};
     --red-rgb: #{hexToRGB($red-dark)};
-    --bone: #{$light-grey};
-    --bone-rgb: #{hexToRGB($light-grey)};
+    --forest: #{$forest-green-dark};
+    --forest-rgb: #{hexToRGB($forest-green-dark)};
+    --light-blue: #{$light-blue-dark};
+    --light-blue-rgb: #{hexToRGB($light-blue-dark)};
+    --bone: #{$grey-200};
+    --bone-rgb: #{hexToRGB($grey-200)};
+    --grape: #{$grape-dark};
+    --grape-rgb: #{hexToRGB($grape-dark)};
     --mirror-card-bg: #{$mirror-card-background-gradient-dark};
     --mirror-border-color: #{$mirror-border-color-dark};
+    --badge-border-color: #{$grey-700};
+    --badge-bg-color: #{$grey-800};
+    --badge-text-color: #{$grey-100};
   }
 
   &.FLOWER {
     --primary-color: var(--pink);
     --primary-color-rgb: var(--pink-rgb);
     --secondary-color: var(--yellow);
+    --secondary-color-rgb: var(--yellow-rgb);
   }
 
   &.SUNFLOWER {
     --primary-color: var(--yellow);
     --primary-color-rgb: var(--yellow-rgb);
+    --secondary-color: var(--green);
+    --secondary-color-rgb: var(--green-rgb);
   }
 
   &.STRAWBERRY {
     --primary-color: var(--red);
     --primary-color-rgb: var(--red-rgb);
+    --secondary-color: var(--green);
+    --secondary-color-rgb: var(--green-rgb);
   }
 
   &.PUMPKIN {
     --primary-color: var(--orange);
     --primary-color-rgb: var(--orange-rgb);
+    --secondary-color: var(--yellow);
+    --secondary-color-rgb: var(--yellow-rgb);
   }
 
   &.BROCCOLI {
-    --primary-color: var(--green);
-    --primary-color-rgb: var(--green-rgb);
+    --primary-color: var(--forest);
+    --primary-color-rgb: var(--forest-rgb);
+    --secondary-color: var(--green);
+    --secondary-color-rgb: var(--green-rgb);
   }
 
   &.WATER {
     --primary-color: var(--blue);
     --primary-color-rgb: var(--blue-rgb);
+    --secondary-color: var(--light-blue);
+    --secondary-color-rgb: var(--light-blue-rgb);
   }
 
   &.GRAPE {
-    --primary-color: var(--purple);
-    --primary-color-rgb: var(--purple-rgb);
+    --primary-color: var(--grape);
+    --primary-color-rgb: var(--grape-rgb);
+    --secondary-color: var(--purple);
+    --secondary-color-rgb: var(--purple-rgb);
   }
 
   &.BONE {
     --primary-color: var(--bone);
     --primary-color-rgb: var(--bone-rgb);
+    --secondary-color: var(--bone);
+    --secondary-color-rgb: var(--bone-rgb);
   }
 }
 
