@@ -1,17 +1,24 @@
 import { useState } from 'react'
+import { useEthers } from '@usedapp/core'
+import { useNavigate } from 'react-router-dom'
 
 import { Button } from '../../components/Button'
 import { MirrorCard } from '../../components/MirrorCard'
 import { NFTCard } from '../../components/NFTCard'
 import { TraitCard } from '../../components/TraitCard'
 import { AppLayout } from '../../layout/AppLayout/AppLayout'
-
 import './NFTPage.scss'
+import { shortenAddress } from '../../helpers'
+import { CopyIcon } from '../../components/CopyIcon/CopyIcon'
 
 export const NFTPage = () => {
   const [showNfts, setShowNfts] = useState(false)
   const [activeNFT, setActiveNFT] = useState(-1)
   const [isLoading, setIsLoading] = useState(false)
+
+  const { account } = useEthers()
+  const navigate = useNavigate()
+  const [showCheck, setShowCheck] = useState(false)
 
   const mirrorCardContent = (
     <img
@@ -89,6 +96,11 @@ export const NFTPage = () => {
     setIsLoading(true)
   }
 
+  if (!account) {
+    navigate('/connect')
+    return null
+  }
+
   return (
     <AppLayout
       mirrorCard={
@@ -102,7 +114,17 @@ export const NFTPage = () => {
           <h3>
             <div className="dot"></div> Optimism
           </h3>
-          <h1>0x123...123</h1>
+          <h1
+            onClick={() => {
+              setShowCheck(true)
+              navigator.clipboard.writeText(account)
+              setTimeout(() => {
+                setShowCheck(false)
+              }, 2000)
+            }}
+          >
+            {shortenAddress(account)} <CopyIcon showCheck={showCheck} />
+          </h1>
 
           {showNfts ? (
             <div className="card__nftCardContainer">
