@@ -17,19 +17,21 @@ export const Home = () => {
   const homeContent = (
     <div className="home__content">
       <p>
-        The Magic Mirror allows you to mirror your Optimism NFTs on Ethereum so
-        you can display them on apps like Twitter that don't yet support
+        <span>The Magic Mirror</span> allows you to mirror your{' '}
+        <span>Optimism NFTs on Ethereum</span> so you can{' '}
+        <span>display them on apps like Twitter</span> that don't yet support
         Opitmism NFTs natively.
       </p>
       <p>
         Once you connect your wallet, you'll first be prompted to mint a Magic
-        Mirror NFT on Ethereum. You only need to do this once per address.
+        Mirror NFT on Ethereum. You only need to do this{' '}
+        <span>once per address</span>.
       </p>
       <p>
         After you've minted your Magic Mirror NFT, you can select an Optimism
-        NFT to put inside of the Magic Mirror. You can only put one NFT inside
-        of the Magic Mirror at a time, but you can update your mirrored NFT
-        whenever you want.
+        NFT to put <span>inside of the Magic Mirror</span>. You can only put one
+        NFT inside of the Magic Mirror at a time, but you can{' '}
+        <span>update your mirrored NFT whenever you want</span>.
       </p>
       <Button
         onClick={() => {

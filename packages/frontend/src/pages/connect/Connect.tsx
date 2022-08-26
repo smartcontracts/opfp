@@ -19,7 +19,7 @@ export const Connect = () => {
     if (account) {
       navigate('/nft')
     }
-  })
+  }, [account])
 
   const mirrorCardContent = (
     <div className="connect__mirrorCardContent">
