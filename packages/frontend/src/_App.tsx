@@ -112,7 +112,7 @@ class App extends React.Component<Props, State> {
 
     const account = this.state.provider.getSigner(this.state.address)
     const nft = new ethers.Contract(
-      '0x52D4E86F1B35FccF184773862D4C7e6202Ae35fE',
+      '0x1dE1daC8A8EC70d48cadCCE1f93AeB54263a3EC8',
       MagicMirrorNFT.abi,
       account
     )
