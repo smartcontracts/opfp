@@ -1,71 +1,127 @@
 import { useEffect, useState } from 'react'
-import { useEthers } from '@usedapp/core'
+import { useEthers, Rinkeby, Optimism } from '@usedapp/core'
 import { useNavigate } from 'react-router-dom'
 
 import { Button } from '../../components/Button'
 import { MirrorCard } from '../../components/MirrorCard'
-import { NFTCard } from '../../components/NFTCard'
-import { TraitCard } from '../../components/TraitCard'
 import { AppLayout } from '../../layout/AppLayout/AppLayout'
-import './NFTPage.scss'
-import { shortenAddress } from '../../helpers'
-import { CopyIcon } from '../../components/CopyIcon/CopyIcon'
+import { getNftDetails, getNftsByAddress, shortenAddress } from '../../helpers'
 import { NetworkDropdown } from '../../components/NetworkDropdown/NetworkDropdown'
+import { NFTPageContent } from '../../components/NFTPageContent'
+import { Account } from '../../components/Account'
+import { mintDescription } from './constants'
+import { getHasNft, getMirroredNFT, useMirror } from '../../hooks/useMirror'
+
+import './NFTPage.scss'
 
 export const NFTPage = () => {
-  const [showNfts, setShowNfts] = useState(false)
-  const [activeNFT, setActiveNFT] = useState(-1)
-  const [isLoading, setIsLoading] = useState(false)
-  const [notMinted, setNotMinted] = useState(true)
-
-  const { account } = useEthers()
+  const { account, chainId, switchNetwork } = useEthers()
   const navigate = useNavigate()
-  const [showCheck, setShowCheck] = useState(false)
+  const { mint, update } = useMirror()
+
+  const [showNfts, setShowNfts] = useState(false)
+  const [hasNFT, setHasNft] = useState(false)
+  const [mirroredNFT, setMirroredNFT] = useState<any>(null)
+  const [nfts, setNfts] = useState<any[]>([])
+  const [traits, setTraits] = useState<any>([])
+  const [activeNFT, setActiveNFT] = useState(-1)
+  const [isPageLoading, setIsPageLoading] = useState(true)
+  const [isButtonSpinning] = useState(false)
 
   useEffect(() => {
+    // Initialization function for page data.
+    const initialize = async (account) => {
+      setIsPageLoading(true)
+      // Get the mirror NFT + load traits if the mirrored NFT exists.
+      try {
+        const _mirroredNFT = await getMirroredNFT(account)
+        setMirroredNFT(_mirroredNFT)
+
+        const opfp = await getNftDetails(
+          _mirroredNFT?.token,
+          _mirroredNFT?.id.toNumber()
+        )
+        setTraits(opfp?.traits)
+      } catch (error) {
+        console.log(error)
+      }
+
+      // Check to see if the user has the mirrored NFT.
+      try {
+        const _hasNFT = await getHasNft(account)
+        setHasNft(_hasNFT)
+      } catch (error) {
+        setHasNft(false)
+        console.log(error)
+      }
+
+      // Gets NFTs in users wallet on optimism.
+      const _nfts = await getNftsByAddress(account)
+      setNfts(_nfts)
+      setIsPageLoading(false)
+    }
+
     if (!account) {
       navigate('/connect')
+    } else {
+      // Load NFTs
+      initialize(account)
     }
-  })
+  }, [account])
 
-  let mirrorCardContent = (
-    <img
-      src="https://quixotic.io/_next/image?url=https%3A%2F%2Ffanbase-1.s3.amazonaws.com%2Fnft_image%2F0x5c9D55b78FEBCC2061715BA4f57EcF8EA2711F2c%2F3539%2F1659352981%2Fimage.png&w=2048&q=75"
-      alt="nft"
-    />
-  )
+  const getNFTImg = () => {
+    let img = ''
+    nfts.forEach((nft) => {
+      if (
+        nft?.collection?.address == mirroredNFT?.token &&
+        nft?.token_id == mirroredNFT?.id.toNumber()
+      ) {
+        img = nft.image_url
+      }
+    })
 
-  let contractAddress = '0x5c9D55b78FEBCC2061715BA4f57EcF8EA2711F2c'
-  let tokenId = '3539'
-  let lastUpdated = 'Just now'
-  let buttonText = 'Update NFT'
-
-  if (notMinted) {
-    mirrorCardContent = <div className="connect__mirrorCardContent"></div>
-    contractAddress = 'Not minted'
-    tokenId = 'Not minted'
-    lastUpdated = 'N/A'
-    buttonText = 'Mint NFT'
+    return img
   }
 
-  const handleButtonClick = () => {
-    if (notMinted && !showNfts) {
+  const handleButtonClick = async () => {
+    if (!hasNFT && !showNfts) {
       // mint mirror nft
-      setIsLoading(true)
-      setTimeout(() => {
-        setIsLoading(false)
-        setNotMinted(false)
-      }, 2000)
-    } else if (!notMinted && !showNfts) {
-      setShowNfts(true)
-      // show NFTs in wallet
+      if (chainId !== Rinkeby.chainId) {
+        switchNetwork(Rinkeby.chainId)
+      }
+      mint()
+    } else if (hasNFT && !showNfts) {
+      // toggle to show NFTs in wallet
+      if (chainId !== Optimism.chainId) {
+        await switchNetwork(Optimism.chainId)
+      } else {
+        setShowNfts(true)
+      }
     } else {
-      // update NFT tx
-      setIsLoading(true)
-      setTimeout(() => {
-        setIsLoading(false)
-        setShowNfts(false)
-      }, 2000)
+      // Call magic mint manager to update NFT metadata
+      if (chainId !== Optimism.chainId) {
+        switchNetwork(Optimism.chainId)
+      }
+      const tokenId = nfts[activeNFT].token_id
+      const contract = nfts[activeNFT].collection.address
+      update({ token: contract, id: tokenId })
+    }
+  }
+
+  let contractAddress = 'Not minted'
+  let tokenId = 'Not minted'
+  let lastUpdated = 'N/A'
+  let buttonText = 'Mint NFT'
+  let mirrorCardContent = <div className="connect__mirrorCardContent" />
+
+  if (hasNFT) {
+    contractAddress = mirroredNFT?.token
+    tokenId = mirroredNFT?.id.toNumber()
+    lastUpdated = 'Just now'
+    buttonText = 'Update NFT'
+    if (!isPageLoading) {
+      const nftImg = getNFTImg()
+      mirrorCardContent = <img src={nftImg} alt="Magic Mirror NFT" />
     }
   }
 
@@ -74,7 +130,7 @@ export const NFTPage = () => {
       <p className="title">Magic Mirror NFT</p>
       <div className="row">
         <p className="name">Contract</p>
-        <p>{notMinted ? contractAddress : shortenAddress(contractAddress)}</p>
+        <p>{!hasNFT ? contractAddress : shortenAddress(contractAddress)}</p>
       </div>
       <div className="row">
         <p className="name">Token ID</p>
@@ -87,51 +143,6 @@ export const NFTPage = () => {
     </div>
   )
 
-  const traits = [
-    {
-      name: 'background',
-      value: 'yellow',
-    },
-    {
-      name: 'helmet',
-      value: 'flower',
-    },
-    {
-      name: 'helmet',
-      value: 'flower',
-    },
-    {
-      name: 'helmet',
-      value: 'flower',
-    },
-    {
-      name: 'helmet',
-      value: 'flower',
-    },
-    {
-      name: 'helmet',
-      value: 'flower',
-    },
-  ]
-
-  const nfts = [
-    {
-      name: 'Magic Mirror #1',
-      image:
-        'https://quixotic.io/_next/image?url=https%3A%2F%2Ffanbase-1.s3.amazonaws.com%2Fnft_image%2F0x5c9D55b78FEBCC2061715BA4f57EcF8EA2711F2c%2F3539%2F1659352981%2Fimage.png&w=2048&q=75',
-    },
-    {
-      name: 'Magic Mirror #1',
-      image:
-        'https://quixotic.io/_next/image?url=https%3A%2F%2Ffanbase-1.s3.amazonaws.com%2Fnft_image%2F0x5c9D55b78FEBCC2061715BA4f57EcF8EA2711F2c%2F3539%2F1659352981%2Fimage.png&w=2048&q=75',
-    },
-    {
-      name: 'Magic Mirror #1',
-      image:
-        'https://quixotic.io/_next/image?url=https%3A%2F%2Ffanbase-1.s3.amazonaws.com%2Fnft_image%2F0x5c9D55b78FEBCC2061715BA4f57EcF8EA2711F2c%2F3539%2F1659352981%2Fimage.png&w=2048&q=75',
-    },
-  ]
-
   if (!account) {
     return null
   } else {
@@ -139,6 +150,7 @@ export const NFTPage = () => {
       <AppLayout
         mirrorCard={
           <MirrorCard
+            showSkeleton={isPageLoading}
             content={mirrorCardContent}
             description={mirrorCardDescription}
           />
@@ -146,52 +158,29 @@ export const NFTPage = () => {
         content={
           <div className="nftPage__content">
             <NetworkDropdown />
-            <h1
-              onClick={() => {
-                setShowCheck(true)
-                navigator.clipboard.writeText(account)
-                setTimeout(() => {
-                  setShowCheck(false)
-                }, 2000)
-              }}
-            >
-              {shortenAddress(account)} <CopyIcon showCheck={showCheck} />
-            </h1>
-
-            {notMinted ? (
-              <div className="card__notMintedContainer">
-                <TraitCard
-                  name="NFT not minted"
-                  value="To proceed, click the button below to mint your Magic Mirror NFT. Afterwards, you can select an Optimism NFT to put inside of the Magic Mirror."
-                />
-              </div>
-            ) : showNfts ? (
-              <div className="card__nftCardContainer">
-                {nfts.map((nft, index) => (
-                  <NFTCard
-                    name={nft.name}
-                    img={nft.image}
-                    isActive={activeNFT === index}
-                    onClick={() =>
-                      setActiveNFT(index === activeNFT ? -1 : index)
-                    }
-                  />
-                ))}
-              </div>
+            <Account account={account} />
+            {!isPageLoading && !hasNFT ? (
+              mintDescription
             ) : (
-              <div className="card__container">
-                {traits.map((trait) => (
-                  <TraitCard name={trait.name} value={trait.value} />
-                ))}
-              </div>
+              <NFTPageContent
+                showNfts={showNfts}
+                showSkeleton={isPageLoading}
+                nfts={nfts}
+                traits={traits}
+                activeNFT={activeNFT}
+                setActiveNFT={(nftIndex) => {
+                  setActiveNFT(nftIndex)
+                }}
+              />
             )}
-
-            <Button onClick={handleButtonClick} isLoading={isLoading}>
-              <span>{buttonText}</span>
-            </Button>
+            {isPageLoading ? null : (
+              <Button onClick={handleButtonClick} isLoading={isButtonSpinning}>
+                <span>{buttonText}</span>
+              </Button>
+            )}
           </div>
         }
-      ></AppLayout>
+      />
     )
   }
 }

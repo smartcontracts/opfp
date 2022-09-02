@@ -2,13 +2,14 @@ import './NetworkDropdown.scss'
 
 import ClickAwayListener from 'react-click-away-listener'
 import { useState } from 'react'
-import { useEthers, Mainnet, Optimism } from '@usedapp/core'
+import { useEthers, Mainnet, Optimism, Rinkeby } from '@usedapp/core'
 
 import {
   OP_NETWORK,
   NETWORKS,
   ETH_NETWORK,
   UNSUPPORTED_NETWORK,
+  RINKEBY_NETWORK,
 } from './constants'
 
 export const NetworkDropdown = ({}) => {
@@ -32,13 +33,16 @@ export const NetworkDropdown = ({}) => {
             ? ETH_NETWORK.jsx
             : chainId === Optimism.chainId
             ? OP_NETWORK.jsx
+            : chainId === Rinkeby.chainId
+            ? RINKEBY_NETWORK.jsx
             : UNSUPPORTED_NETWORK.jsx}
         </div>
 
         {showDropdown && (
           <div className="networkDropdown__dropdown">
-            {NETWORKS.map((network) => (
+            {NETWORKS.map((network, index) => (
               <div
+                key={index}
                 onClick={() => {
                   setShowDropdown(!showDropdown)
                   switchNetwork(network.chainId)

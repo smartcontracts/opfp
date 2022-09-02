@@ -18,8 +18,12 @@ export const Connect = () => {
   useEffect(() => {
     if (account) {
       navigate('/nft')
+    } else {
+      activateBrowserWallet()
     }
-  }, [account])
+  })
+
+  console.log('ACCOUNTTT', account)
 
   const mirrorCardContent = (
     <div className="connect__mirrorCardContent">

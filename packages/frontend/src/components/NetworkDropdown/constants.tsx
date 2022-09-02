@@ -1,4 +1,4 @@
-import { Mainnet, Optimism } from '@usedapp/core'
+import { Mainnet, Optimism, Rinkeby } from '@usedapp/core'
 
 export const OP_NETWORK = {
   chainId: Optimism.chainId,
@@ -14,6 +14,15 @@ export const ETH_NETWORK = {
   jsx: (
     <>
       <div className="dot purple"></div> <span>Ethereum</span>
+    </>
+  ),
+}
+
+export const RINKEBY_NETWORK = {
+  chainId: Rinkeby.chainId,
+  jsx: (
+    <>
+      <div className="dot yellow"></div> <span>Rinkeby</span>
     </>
   ),
 }

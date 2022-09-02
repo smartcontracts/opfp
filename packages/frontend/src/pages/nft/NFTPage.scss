@@ -38,22 +38,6 @@
     justify-content: center;
   }
 
-  h1 {
-    color: var(--primary-color);
-    text-shadow: var(--primary-color) 0px 0px 10px;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-    width: fit-content;
-
-    &:hover {
-      color: var(--secondary-color);
-      text-shadow: var(--secondary-color) 0px 0px 10px;
-    }
-
-    &:active {
-      transform: scale(0.95);
-    }
-  }
   .card__container {
     display: grid;
     grid-template-columns: repeat(2, minmax(100px, 140px));

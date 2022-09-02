@@ -9,9 +9,14 @@ import { useTheme } from '../../hooks/useTheme'
 interface MirrorCardProps {
   content: React.ReactNode
   description: React.ReactNode
+  showSkeleton?: boolean
 }
 
-export const MirrorCard = ({ content, description }: MirrorCardProps) => {
+export const MirrorCard = ({
+  content,
+  description,
+  showSkeleton,
+}: MirrorCardProps) => {
   const { theme: _theme } = useTheme()
   const [theme] = useLocalStorage(storageIds.THEME, _theme)
   const [isFlipped, setIsFlipped] = useState(false)
@@ -22,7 +27,6 @@ export const MirrorCard = ({ content, description }: MirrorCardProps) => {
   useEffect(() => {
     glareMaxOpacity = theme === themes.DARK ? 0.4 : 0.4
     glareColor = theme === themes.DARK ? '#FFFFFF' : '#FFFFFF'
-    console.log(glareMaxOpacity, glareColor)
   }, [_theme])
 
   const flipCard = () => {
@@ -40,11 +44,17 @@ export const MirrorCard = ({ content, description }: MirrorCardProps) => {
         flipHorizontally={isFlipped}
       >
         {isFlipped ? (
-          <div className="mirrorCard__backside">hey</div>
+          <div className="mirrorCard__backside">
+            <p>"Magic mirror on the wall..."</p>
+          </div>
         ) : (
           <>
             <div className="mirrorCard__content">{content}</div>
-            <div className="mirrorCard__description">{description}</div>
+            {showSkeleton ? (
+              <div>loading...</div>
+            ) : (
+              <div className="mirrorCard__description">{description}</div>
+            )}
           </>
         )}
       </Tilt>

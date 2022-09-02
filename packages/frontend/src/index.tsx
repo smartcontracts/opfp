@@ -2,7 +2,14 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.scss'
 import { BrowserRouter } from 'react-router-dom'
-import { Mainnet, DAppProvider, Config, Goerli, Optimism } from '@usedapp/core'
+import {
+  Mainnet,
+  DAppProvider,
+  Config,
+  Goerli,
+  Optimism,
+  Rinkeby,
+} from '@usedapp/core'
 import { getDefaultProvider } from 'ethers'
 
 import App from './App'
@@ -14,6 +21,7 @@ const config: Config = {
     [Mainnet.chainId]: getDefaultProvider('mainnet'),
     [Optimism.chainId]: getDefaultProvider('optimism'),
     [Goerli.chainId]: getDefaultProvider('goerli'),
+    [Rinkeby.chainId]: getDefaultProvider('rinkeby'),
   },
 }
 

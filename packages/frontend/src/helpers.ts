@@ -1,5 +1,7 @@
 import { shortenAddress as extShortenAddress } from '@usedapp/core'
 
+import { QUIXOTIC_API_KEY } from './config'
+
 export const shortenEthEns = (str: string) => {
   if (str.length <= 13) {
     return str
@@ -13,6 +15,51 @@ export const shortenAddress = (address: string) => {
     return shortenEthEns(address)
   }
   return extShortenAddress(address)
+}
+
+export const getNftsByAddress = async (address: string) => {
+  const res = await fetch(
+    `https://api.quixotic.io/api/v1/account/${address}/assets/`,
+    {
+      headers: {
+        'X-API-KEY': QUIXOTIC_API_KEY,
+      },
+    }
+  )
+
+  const assets = await res.json()
+  return assets.results
+}
+
+export const getNftDetails = async (contract: string, id: string) => {
+  const res = await fetch(
+    `https://api.qx.app/api/v1/asset/${contract}:${id}/`,
+    {
+      headers: {
+        'X-API-KEY': QUIXOTIC_API_KEY,
+      },
+    }
+  )
+
+  const nft = await res.json()
+  return nft
+}
+
+export const getOpfp = async (chainId: number, address: string) => {
+  const res = await fetch(
+    `http://opfp.art/api/mirror/uri/${chainId}/${address}`
+  )
+
+  const opfp = await res.json()
+  console.log(opfp)
+}
+
+export const updateMirroredNft = async (token, address) => {
+  console.log(token, address)
+}
+
+export const mintMirroredNft = async () => {
+  console.log('minting...')
 }
 
 // checks if the input (address or ens) resolves to a valid ETH address.
