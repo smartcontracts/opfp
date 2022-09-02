@@ -5,7 +5,12 @@ import { useNavigate } from 'react-router-dom'
 import { Button } from '../../components/Button'
 import { MirrorCard } from '../../components/MirrorCard'
 import { AppLayout } from '../../layout/AppLayout/AppLayout'
-import { getNftDetails, getNftsByAddress, shortenAddress } from '../../helpers'
+import {
+  getNftDetails,
+  getNftsByAddress,
+  shortenAddress,
+  shortenString,
+} from '../../helpers'
 import { NetworkDropdown } from '../../components/NetworkDropdown/NetworkDropdown'
 import { NFTPageContent } from '../../components/NFTPageContent'
 import { Account } from '../../components/Account'
@@ -23,7 +28,7 @@ export const NFTPage = () => {
   const [hasNFT, setHasNft] = useState(false)
   const [mirroredNFT, setMirroredNFT] = useState<any>(null)
   const [nfts, setNfts] = useState<any[]>([])
-  const [traits, setTraits] = useState<any>([])
+  const [nft, setNft] = useState<any>(null)
   const [activeNFT, setActiveNFT] = useState(-1)
   const [isPageLoading, setIsPageLoading] = useState(true)
   const [isButtonSpinning] = useState(false)
@@ -41,7 +46,8 @@ export const NFTPage = () => {
           _mirroredNFT?.token,
           _mirroredNFT?.id.toNumber()
         )
-        setTraits(opfp?.traits)
+
+        setNft(opfp)
       } catch (error) {
         console.log(error)
       }
@@ -115,9 +121,9 @@ export const NFTPage = () => {
   let mirrorCardContent = <div className="connect__mirrorCardContent" />
 
   if (hasNFT) {
-    contractAddress = mirroredNFT?.token
-    tokenId = mirroredNFT?.id.toNumber()
-    lastUpdated = 'Just now'
+    contractAddress = nft?.collection.address
+    tokenId = nft?.token_id
+    lastUpdated = shortenString(nft?.collection.name, 20)
     buttonText = 'Update NFT'
     if (!isPageLoading) {
       const nftImg = getNFTImg()
@@ -129,16 +135,16 @@ export const NFTPage = () => {
     <div className="nftPage__mirrorCardDescription">
       <p className="title">Magic Mirror NFT</p>
       <div className="row">
-        <p className="name">Contract</p>
-        <p>{!hasNFT ? contractAddress : shortenAddress(contractAddress)}</p>
+        <p className="name">Collection</p>
+        <p>{lastUpdated}</p>
       </div>
       <div className="row">
         <p className="name">Token ID</p>
         <p>{tokenId}</p>
       </div>
       <div className="row">
-        <p className="name">Last updated</p>
-        <p>{lastUpdated}</p>
+        <p className="name">NFT Contract</p>
+        <p>{!hasNFT ? contractAddress : shortenAddress(contractAddress)}</p>
       </div>
     </div>
   )
@@ -166,7 +172,7 @@ export const NFTPage = () => {
                 showNfts={showNfts}
                 showSkeleton={isPageLoading}
                 nfts={nfts}
-                traits={traits}
+                traits={nft?.traits}
                 activeNFT={activeNFT}
                 setActiveNFT={(nftIndex) => {
                   setActiveNFT(nftIndex)

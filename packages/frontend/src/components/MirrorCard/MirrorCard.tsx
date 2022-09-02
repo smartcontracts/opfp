@@ -1,10 +1,12 @@
 import './MirrorCard.scss'
 import Tilt from 'react-parallax-tilt'
+import Skeleton from 'react-loading-skeleton'
 import { useEffect, useState } from 'react'
 import { useLocalStorage } from 'react-use'
 
 import { storageIds, themes } from '../../constants'
 import { useTheme } from '../../hooks/useTheme'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 interface MirrorCardProps {
   content: React.ReactNode
@@ -33,6 +35,8 @@ export const MirrorCard = ({
     setIsFlipped(!isFlipped)
   }
 
+  const skeletonRows = [1, 2, 3]
+
   return (
     <div className="mirrorCard__wrapper" onClick={flipCard}>
       <Tilt
@@ -51,7 +55,15 @@ export const MirrorCard = ({
           <>
             <div className="mirrorCard__content">{content}</div>
             {showSkeleton ? (
-              <div>loading...</div>
+              <div className="mirrorCard__skeleton">
+                <Skeleton className="title" borderRadius="16px" height="22px" />
+                {skeletonRows.map((_, index) => (
+                  <div key={index} className="row">
+                    <Skeleton borderRadius="16px" height="16px" />
+                    <Skeleton borderRadius="16px" height="16px" />
+                  </div>
+                ))}
+              </div>
             ) : (
               <div className="mirrorCard__description">{description}</div>
             )}

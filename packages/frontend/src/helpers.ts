@@ -11,6 +11,9 @@ export const shortenEthEns = (str: string) => {
 }
 
 export const shortenAddress = (address: string) => {
+  if (!address) {
+    return ''
+  }
   if (address.endsWith('.eth')) {
     return shortenEthEns(address)
   }
@@ -54,12 +57,15 @@ export const getOpfp = async (chainId: number, address: string) => {
   console.log(opfp)
 }
 
-export const updateMirroredNft = async (token, address) => {
-  console.log(token, address)
-}
-
-export const mintMirroredNft = async () => {
-  console.log('minting...')
+export const shortenString = (str: string, length: number) => {
+  if (!str) {
+    return ''
+  }
+  if (str.length <= length) {
+    return str
+  } else {
+    return str.substring(0, length) + '...'
+  }
 }
 
 // checks if the input (address or ens) resolves to a valid ETH address.

@@ -107,6 +107,8 @@ body {
     --badge-bg-hover: #{$grey-50};
     --badge-bg-active: #{$grey-100};
     --badge-text-color: #{$grey-500};
+    --skeleton-bg: #{$grey-100};
+    --skeleton-highlight: #{$grey-50};
   }
 
   &.dark {
@@ -147,6 +149,8 @@ body {
     --badge-bg-hover: #{$grey-750};
     --badge-bg-active: #{$grey-700};
     --badge-text-color: #{$grey-100};
+    --skeleton-bg: #{$grey-700};
+    --skeleton-highlight: #{$grey-600};
   }
 
   &.FLOWER {

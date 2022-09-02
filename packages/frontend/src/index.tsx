@@ -11,6 +11,7 @@ import {
   Rinkeby,
 } from '@usedapp/core'
 import { getDefaultProvider } from 'ethers'
+import { SkeletonTheme } from 'react-loading-skeleton'
 
 import App from './App'
 import reportWebVitals from './reportWebVitals'
@@ -29,7 +30,12 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <DAppProvider config={config}>
     <BrowserRouter>
-      <App />
+      <SkeletonTheme
+        baseColor="var(--skeleton-bg)"
+        highlightColor="var(--skeleton-highlight)"
+      >
+        <App />
+      </SkeletonTheme>
     </BrowserRouter>
   </DAppProvider>
 )

@@ -35,6 +35,27 @@
     padding: 14px 0px;
   }
 
+  .mirrorCard__skeleton {
+    padding: 8px 8px;
+    padding-top: 18px;
+
+    .title {
+      margin: auto;
+      margin-bottom: -16px;
+      width: 80%;
+      display: flex;
+      justify-content: center;
+      height: fit-content;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 8px;
+    }
+  }
+
   .mirrorCard__backside {
     -moz-transform: scaleX(-1);
     -webkit-transform: scaleX(-1);

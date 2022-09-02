@@ -1,7 +1,10 @@
+import Skeleton from 'react-loading-skeleton'
+
 import { NFTCard } from '../NFTCard'
 import { TraitCard } from '../TraitCard'
 
 import './NFTPageContent.scss'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 interface NFTCardProps {
   nfts: any[]
@@ -20,8 +23,16 @@ export const NFTPageContent = ({
   activeNFT,
   setActiveNFT,
 }: NFTCardProps) => {
+  console.log(nfts)
   if (showSkeleton) {
-    return <div>skeleton</div>
+    return (
+      <div className="card__skeletonContainer">
+        <Skeleton height="44px" borderRadius="14px" />
+        <Skeleton height="44px" borderRadius="14px" />
+        <Skeleton height="44px" borderRadius="14px" />
+        <Skeleton height="62px" borderRadius="18px" />
+      </div>
+    )
   } else if (showNfts) {
     return (
       <div className="card__nftCardContainer">
@@ -39,8 +50,12 @@ export const NFTPageContent = ({
   } else {
     return (
       <div className="card__container">
-        {traits.map((trait, index) => (
-          <TraitCard key={index} name={trait.trait_type} value={trait.value} />
+        {traits?.map((trait, index) => (
+          <TraitCard
+            key={index}
+            name={trait?.trait_type}
+            value={trait?.value}
+          />
         ))}
       </div>
     )

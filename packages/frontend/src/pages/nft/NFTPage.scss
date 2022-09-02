@@ -45,6 +45,13 @@
     margin: 16px 0px;
   }
 
+  .card__skeletonContainer {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    margin-top: 16px;
+  }
+
   .card__nftCardContainer {
     display: flex;
     flex-wrap: wrap;
