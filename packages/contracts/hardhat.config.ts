@@ -9,6 +9,15 @@ import 'hardhat-deploy'
 // Load environment variables from .env
 dotenv.config()
 
+// Load the deployer key if it exists
+const accounts: string[] = []
+const pk = getenv('DEPLOYER_PRIVATE_KEY')
+if (!pk) {
+  console.log(`warning: deployer private key is not configured`)
+} else {
+  accounts.push(pk)
+}
+
 const config: HardhatUserConfig = {
   solidity: {
     version: '0.8.13',
@@ -17,7 +26,7 @@ const config: HardhatUserConfig = {
     optimism: {
       chainId: 10,
       url: 'https://mainnet.optimism.io',
-      accounts: [reqenv('DEPLOYER_PRIVATE_KEY')],
+      accounts,
       verify: {
         etherscan: {
           apiKey: getenv('OPTIMISTIC_ETHERSCAN_API_KEY'),
@@ -27,7 +36,7 @@ const config: HardhatUserConfig = {
     'optimism-kovan': {
       chainId: 69,
       url: 'https://kovan.optimism.io',
-      accounts: [reqenv('DEPLOYER_PRIVATE_KEY')],
+      accounts,
       verify: {
         etherscan: {
           apiKey: getenv('OPTIMISTIC_ETHERSCAN_API_KEY'),
@@ -37,7 +46,7 @@ const config: HardhatUserConfig = {
     ethereum: {
       chainId: 1,
       url: `https://mainnet.infura.io/v3/${getenv('INFURA_PROJECT_ID')}`,
-      accounts: [reqenv('DEPLOYER_PRIVATE_KEY')],
+      accounts,
       verify: {
         etherscan: {
           apiKey: getenv('ETHEREUM_ETHERSCAN_API_KEY'),
@@ -47,7 +56,7 @@ const config: HardhatUserConfig = {
     goerli: {
       chainId: 5,
       url: `https://goerli.infura.io/v3/${getenv('INFURA_PROJECT_ID')}`,
-      accounts: [reqenv('DEPLOYER_PRIVATE_KEY')],
+      accounts,
       verify: {
         etherscan: {
           apiKey: getenv('ETHEREUM_ETHERSCAN_API_KEY'),
@@ -57,7 +66,7 @@ const config: HardhatUserConfig = {
     rinkeby: {
       chainId: 4,
       url: `https://rinkeby.infura.io/v3/${getenv('INFURA_PROJECT_ID')}`,
-      accounts: [reqenv('DEPLOYER_PRIVATE_KEY')],
+      accounts,
       verify: {
         etherscan: {
           apiKey: getenv('ETHEREUM_ETHERSCAN_API_KEY'),
@@ -67,7 +76,7 @@ const config: HardhatUserConfig = {
     ropsten: {
       chainId: 3,
       url: `https://ropsten.infura.io/v3/${getenv('INFURA_PROJECT_ID')}`,
-      accounts: [reqenv('DEPLOYER_PRIVATE_KEY')],
+      accounts,
       verify: {
         etherscan: {
           apiKey: getenv('ETHEREUM_ETHERSCAN_API_KEY'),
@@ -77,7 +86,7 @@ const config: HardhatUserConfig = {
     kovan: {
       chainId: 42,
       url: `https://kovan.infura.io/v3/${getenv('INFURA_PROJECT_ID')}`,
-      accounts: [reqenv('DEPLOYER_PRIVATE_KEY')],
+      accounts,
       verify: {
         etherscan: {
           apiKey: getenv('ETHEREUM_ETHERSCAN_API_KEY'),
