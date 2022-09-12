@@ -1,0 +1,11 @@
+ci:
+  - any: ['.github/**/*']
+
+contracts:
+  - any: ['packages/contracts/**/*']
+
+frontend:
+  - any: ['packages/frontend/**/*']
+
+backend:
+  - any: ['packages/backend/**/*']
