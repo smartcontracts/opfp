@@ -3,6 +3,7 @@ pragma solidity ^0.8.0;
 
 import { Strings } from "@openzeppelin/contracts/utils/Strings.sol";
 import { ERC721 } from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import { Ownable } from "@openzeppelin/contracts/access/Ownable.sol";
 
 /**
  * @title MagicMirrorNFT
@@ -10,7 +11,7 @@ import { ERC721 } from "@openzeppelin/contracts/token/ERC721/ERC721.sol";
  *         to be used in conjunction with a trusted MagicMirror backend. It's possible to use the
  *         same backend to serve NFTs for multiple different networks by specifying a chain ID.
  */
-contract MagicMirrorNFT is ERC721 {
+contract MagicMirrorNFT is ERC721, Ownable {
     /**
      * @notice URI for the MagicMirror backend server.
      */
@@ -26,11 +27,13 @@ contract MagicMirrorNFT is ERC721 {
      * @param _chain Chain ID for the chain to mirror NFTs on.
      */
     constructor(
+        address _owner,
         string memory _api,
         uint256 _chain
     ) ERC721("Magic Mirror NFT", "MMNFT") {
         api = _api;
         chain = _chain;
+        _transferOwnership(_owner);
     }
 
     /**
@@ -60,12 +63,22 @@ contract MagicMirrorNFT is ERC721 {
         return string(
             abi.encodePacked(
                 api,
-                "/api/mirror/uri/",
                 Strings.toString(chain),
                 "/",
                 Strings.toHexString(uint160(_tokenId))
             )
         );
+    }
+
+    /**
+     * @notice Allows the owner to set the API URL.
+     *
+     * @param _api API for the MagicMirror backend server.
+     */
+    function setAPI(
+        string memory _api
+    ) public onlyOwner {
+        api = _api;
     }
 
     /**
