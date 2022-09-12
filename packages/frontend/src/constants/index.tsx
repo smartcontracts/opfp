@@ -15,7 +15,7 @@ export const palettes = {
   GRAPE: 'GRAPE',
   BONE: 'BONE',
   ALIEN: 'ALIEN',
-  RAINBOW: 'RAINBOW',
+  SWORD: 'SWORD',
 }
 
 export const paletteKeys = [
@@ -28,7 +28,7 @@ export const paletteKeys = [
   palettes.GRAPE,
   palettes.BONE,
   palettes.ALIEN,
-  palettes.RAINBOW,
+  palettes.SWORD,
 ]
 
 export const paletteEmojis = {
@@ -41,5 +41,5 @@ export const paletteEmojis = {
   [palettes.GRAPE]: '🍇',
   [palettes.BONE]: '🦴',
   [palettes.ALIEN]: '👽',
-  [palettes.RAINBOW]: '🌈',
+  [palettes.SWORD]: '🗡️',
 }

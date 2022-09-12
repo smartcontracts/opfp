@@ -217,6 +217,13 @@ body {
     --secondary-color: var(--alien);
     --secondary-color-rgb: var(--alien-rgb);
   }
+
+  &.SWORD {
+    --primary-color: var(--bone);
+    --primary-color-rgb: var(--bone-rgb);
+    --secondary-color: var(--red);
+    --secondary-color-rgb: var(--red-rgb);
+  }
 }
 
 body {
