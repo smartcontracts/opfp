@@ -2,17 +2,18 @@
   background-color: var(--primary-color);
   color: var(--card);
   text-shadow: 0px 0px 1.69px var(--card);
-  box-shadow: 0px 0px 30px rgba(var(--primary-color-rgb), 0.8);
+  box-shadow: 0px 0px 15px rgba(var(--primary-color-rgb), 0.8);
   border-radius: 18px;
   border: none;
   font-family: 'Rubik';
-  padding: 18px;
+  padding: 0px 18px;
   font-size: 23px;
   font-weight: 800;
   font-style: italic;
   width: 100%;
   cursor: pointer;
   transition: all 200ms ease;
+  height: 62px;
 
   &:hover {
     transform: scale(1.03);
@@ -21,4 +22,39 @@
   &:active {
     transform: scale(0.96);
   }
+}
+
+.button__containerLoading {
+  background-color: var(--card);
+  // box-shadow: none;
+  cursor: not-allowed;
+
+  &:hover {
+    transform: scale(1);
+  }
+
+  &:active {
+    transform: scale(1);
+  }
+}
+
+.button__containerDisabled {
+  background-color: var(--card-hover);
+  color: var(--text-color-disabled);
+  box-shadow: none;
+  cursor: not-allowed;
+
+  &:hover {
+    transform: scale(1);
+  }
+
+  &:active {
+    transform: scale(1);
+  }
+}
+
+.button__containerSecondary {
+  background-color: var(--card);
+  color: var(--primary-color);
+  border: 3px solid var(--primary-color);
 }

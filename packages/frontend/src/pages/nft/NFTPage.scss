@@ -37,41 +37,43 @@
     align-items: center;
     justify-content: center;
   }
-  h3 {
-    display: flex;
-    align-items: center;
-    font-size: 12px;
-    font-weight: 400;
-    letter-spacing: 0.8px;
-    font-style: italic;
-    padding: 8px 12px;
-    border-radius: 100px;
-    width: fit-content;
-    margin-bottom: 8px;
 
-    border: 1px solid var(--badge-border-color);
-    background-color: var(--badge-bg-color);
-    color: var(--badge-text-color);
-
-    .dot {
-      height: 4px;
-      width: 4px;
-      border-radius: 100px;
-      background-color: rgb(255, 0, 0);
-      box-shadow: 0px 0px 5px 1.5px rgb(255, 0, 0);
-      margin-right: 6px;
-    }
-  }
-
-  h1 {
-    color: var(--primary-color);
-    text-shadow: var(--primary-color) 0px 0px 10px;
-  }
   .card__container {
     display: grid;
     grid-template-columns: repeat(2, minmax(100px, 140px));
     grid-gap: 8px;
     margin: 16px 0px;
+  }
+
+  .card__skeletonContainer {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 8px;
+    margin-top: 16px;
+  }
+
+  .card__nftCardEmpty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 48px 0px;
+    font-weight: 500;
+    font-size: 18px;
+    color: var(--secondary-color);
+    text-shadow: var(--secondary-color) 0px 0px 7px;
+    width: 100%;
+
+    p {
+      margin: 8px 0px;
+      text-align: center;
+    }
+
+    a {
+      font-weight: 700;
+      color: var(--primary-color);
+      text-shadow: var(--primary-color) 0px 0px 7px;
+    }
   }
 
   .card__nftCardContainer {
@@ -111,6 +113,66 @@
     > :nth-child(even) {
       margin-bottom: 16px;
       margin-bottom: 16px;
+    }
+  }
+
+  .card__notMintedContainer {
+    margin: 24px 0px;
+
+    .traitCard__container .value {
+      line-height: 22px;
+    }
+  }
+
+  .card__buttonContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    :nth-child(2) {
+      margin-left: 16px;
+    }
+  }
+}
+
+.mirrorCard__content {
+  position: relative;
+  .nft__mirrorCardContent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(
+      124deg,
+      #ff2400,
+      #e81d1d,
+      #e8b71d,
+      #e3e81d,
+      #1de840,
+      #1ddde8,
+      #2b1de8,
+      #dd00f3,
+      #dd00f3
+    );
+
+    animation: rainbow 7s ease infinite;
+    background-size: 1000% 1000%;
+
+    .walletIcon {
+      width: 160px;
+      height: auto;
+      object-fit: contain;
+      opacity: 0.3;
+      animation: bounce 2000ms ease-in-out infinite;
+
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.07);
+        }
+      }
     }
   }
 }

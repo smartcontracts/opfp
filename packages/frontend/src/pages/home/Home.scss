@@ -7,6 +7,11 @@
     color: var(--text-color);
     text-shadow: 0px 0px 5px var(--text-color);
     margin-bottom: 14px;
+
+    span {
+      color: var(--secondary-color);
+      text-shadow: 0px 0px 5px var(--secondary-color);
+    }
   }
 
   button {

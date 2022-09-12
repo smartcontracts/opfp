@@ -11,6 +11,9 @@
 .mirrorCard__content {
   position: relative;
   .connect__mirrorCardContent {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background: linear-gradient(
       124deg,
       #ff2400,
@@ -26,6 +29,24 @@
 
     animation: rainbow 7s ease infinite;
     background-size: 1000% 1000%;
+
+    .walletIcon {
+      width: 160px;
+      height: auto;
+      object-fit: contain;
+      opacity: 0.3;
+      animation: bounce 2000ms ease-in-out infinite;
+
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.07);
+        }
+      }
+    }
   }
 }
 

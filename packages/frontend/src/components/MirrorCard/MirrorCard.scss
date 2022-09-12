@@ -7,6 +7,7 @@
   padding: 14px;
   border: 3px solid var(--mirror-border-color);
   box-shadow: 0px 0px 30px rgba(var(--drop-shadow), 0.3);
+  cursor: pointer;
 
   .mirrorCard__content {
     border-top-right-radius: 22px;
@@ -32,5 +33,59 @@
 
   .mirrorCard__description {
     padding: 14px 0px;
+  }
+
+  .mirrorCard__skeleton {
+    padding: 8px 8px;
+    padding-top: 18px;
+
+    .title {
+      margin: auto;
+      margin-bottom: -16px;
+      width: 80%;
+      display: flex;
+      justify-content: center;
+      height: fit-content;
+    }
+
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 8px;
+    }
+  }
+
+  .mirrorCard__backside {
+    -moz-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    transform: scaleX(-1);
+    -ms-filter: fliph; /*IE*/
+    filter: fliph; /*IE*/
+
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    p {
+      font-size: 14px;
+      font-weight: 700;
+      opacity: 0.3;
+      font-style: italic;
+    }
+  }
+}
+
+.mirrorCard__wrapper {
+  transition: all 200ms ease;
+  &:hover {
+    transform: scale(1);
+  }
+
+  &:active {
+    transform: scale(0.97);
   }
 }

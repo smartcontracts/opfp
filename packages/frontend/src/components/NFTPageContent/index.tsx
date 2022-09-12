@@ -1,0 +1,1 @@
+export { NFTPageContent } from './NFTPageContent'

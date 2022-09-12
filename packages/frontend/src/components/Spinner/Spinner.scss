@@ -1,0 +1,112 @@
+.loader {
+  // background: #000;
+  // background: radial-gradient(#222, #000);
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  position: relative;
+  height: 50px;
+  width: 100px;
+  right: 0;
+  top: 0;
+  margin: -18px auto;
+  margin-bottom: -20px;
+}
+
+.loader-inner {
+  bottom: 0;
+  height: 60px;
+  left: 0;
+  margin: auto;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100px;
+  transform: scale(0.4);
+  margin-top: -16px;
+}
+
+.loader-line-wrap {
+  animation: spin 1600ms infinite;
+  box-sizing: border-box;
+  height: 50px;
+  left: 0;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  transform-origin: 50% 100%;
+  width: 100px;
+}
+.loader-line {
+  border: 4px solid transparent;
+  border-radius: 100%;
+  box-sizing: border-box;
+  height: 100px;
+  left: 0;
+  margin: 0 auto;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100px;
+}
+.loader-line-wrap:nth-child(1) {
+  animation-delay: -50ms;
+}
+.loader-line-wrap:nth-child(2) {
+  animation-delay: -100ms;
+}
+.loader-line-wrap:nth-child(3) {
+  animation-delay: -150ms;
+}
+.loader-line-wrap:nth-child(4) {
+  animation-delay: -200ms;
+}
+.loader-line-wrap:nth-child(5) {
+  animation-delay: -250ms;
+}
+
+.loader-line-wrap:nth-child(1) .loader-line {
+  border-color: var(--primary-color);
+  box-shadow: 0px 0px 5px rgba(var(--primary-color-rgb), 0.8);
+  height: 90px;
+  width: 90px;
+  top: 7px;
+}
+.loader-line-wrap:nth-child(2) .loader-line {
+  border-color: var(--secondary-color);
+  box-shadow: 0px 0px 5px rgba(var(--secondary-color-rgb), 0.8);
+  height: 76px;
+  width: 76px;
+  top: 14px;
+}
+// .loader-line-wrap:nth-child(3) .loader-line {
+//   border-color: var(--green);
+//   box-shadow: 0px 0px 5px rgba(var(--green-rgb), 0.8);
+//   height: 62px;
+//   width: 62px;
+//   top: 21px;
+// }
+// .loader-line-wrap:nth-child(4) .loader-line {
+//   border-color: var(--blue);
+//   box-shadow: 0px 0px 5px rgba(var(--blue-rgb), 0.8);
+//   height: 48px;
+//   width: 48px;
+//   top: 28px;
+// }
+// .loader-line-wrap:nth-child(5) .loader-line {
+//   border-color: var(--purple);
+//   box-shadow: 0px 0px 5px rgba(var(--purple-rgb), 0.8);
+//   height: 34px;
+//   width: 34px;
+//   top: 35px;
+// }
+
+@keyframes spin {
+  0%,
+  15% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -41,10 +41,10 @@ type State = {
 
 const getNftsByAddress = async (address: string) => {
   const res = await fetch(
-    `https://api.quixotic.io/api/v1/account/${address}/assets/`,
+    `https://api.qx.app/api/v1/account/${address}/assets/`,
     {
       headers: {
-        'X-API-KEY': 'UqEiG81z.uzM8dSiqswNouNMeRRjGTGMpvbDwHOLC',
+        'X-API-KEY': 'dmXaymWM.9qHFy1OHvDfhCWVJkhW2oNGvyoBsWyia',
       },
     }
   )
