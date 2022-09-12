@@ -48,9 +48,7 @@ export const MirrorCard = ({
         flipHorizontally={isFlipped}
       >
         {isFlipped ? (
-          <div className="mirrorCard__backside">
-            <p>"Magic mirror on the wall..."</p>
-          </div>
+          <div className="mirrorCard__backside"></div>
         ) : (
           <>
             <div className="mirrorCard__content">{content}</div>

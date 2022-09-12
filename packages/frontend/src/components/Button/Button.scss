@@ -6,7 +6,7 @@
   border-radius: 18px;
   border: none;
   font-family: 'Rubik';
-  padding: 18px;
+  padding: 0px 18px;
   font-size: 23px;
   font-weight: 800;
   font-style: italic;
@@ -36,4 +36,25 @@
   &:active {
     transform: scale(1);
   }
+}
+
+.button__containerDisabled {
+  background-color: var(--card-hover);
+  color: var(--text-color-disabled);
+  box-shadow: none;
+  cursor: not-allowed;
+
+  &:hover {
+    transform: scale(1);
+  }
+
+  &:active {
+    transform: scale(1);
+  }
+}
+
+.button__containerSecondary {
+  background-color: var(--card);
+  color: var(--primary-color);
+  border: 3px solid var(--primary-color);
 }

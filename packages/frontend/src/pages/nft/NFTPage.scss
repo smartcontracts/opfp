@@ -52,6 +52,30 @@
     margin-top: 16px;
   }
 
+  .card__nftCardEmpty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 48px 0px;
+    font-weight: 500;
+    font-size: 18px;
+    color: var(--secondary-color);
+    text-shadow: var(--secondary-color) 0px 0px 7px;
+    width: 100%;
+
+    p {
+      margin: 8px 0px;
+      text-align: center;
+    }
+
+    a {
+      font-weight: 700;
+      color: var(--primary-color);
+      text-shadow: var(--primary-color) 0px 0px 7px;
+    }
+  }
+
   .card__nftCardContainer {
     display: flex;
     flex-wrap: wrap;
@@ -97,6 +121,16 @@
 
     .traitCard__container .value {
       line-height: 22px;
+    }
+  }
+
+  .card__buttonContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    :nth-child(2) {
+      margin-left: 16px;
     }
   }
 }

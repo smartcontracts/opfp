@@ -33,19 +33,34 @@ export const NFTPageContent = ({
       </div>
     )
   } else if (showNfts) {
-    return (
-      <div className="card__nftCardContainer">
-        {nfts.map((nft, index) => (
-          <NFTCard
-            key={index}
-            name={nft.name}
-            img={nft.image_url}
-            isActive={activeNFT === index}
-            onClick={() => setActiveNFT(index === activeNFT ? -1 : index)}
-          />
-        ))}
-      </div>
-    )
+    if (nfts.length === 0) {
+      return (
+        <div className="card__nftCardEmpty">
+          <p>No NFTs found 😓</p>
+          <p>
+            Check out{' '}
+            <a href="https://qx.app/" target="_blank">
+              Quix
+            </a>{' '}
+            to buy NFTs on Optimism
+          </p>
+        </div>
+      )
+    } else {
+      return (
+        <div className="card__nftCardContainer">
+          {nfts.map((nft, index) => (
+            <NFTCard
+              key={index}
+              name={nft.name}
+              img={nft.image_url}
+              isActive={activeNFT === index}
+              onClick={() => setActiveNFT(index === activeNFT ? -1 : index)}
+            />
+          ))}
+        </div>
+      )
+    }
   } else {
     return (
       <div className="card__container">

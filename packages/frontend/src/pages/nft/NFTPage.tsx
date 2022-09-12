@@ -124,14 +124,25 @@ export const NFTPage = () => {
   let mirrorCardContent = <div className="connect__mirrorCardContent" />
 
   if (hasNFT) {
-    contractAddress = nft?.collection.address
-    tokenId = nft?.token_id
-    lastUpdated = shortenString(nft?.collection.name, 20)
-    buttonText = 'Update NFT'
-    if (!isPageLoading) {
-      const nftImg = getNFTImg()
-      mirrorCardContent = <img src={nftImg} alt="Magic Mirror NFT" />
+    if (nft === null) {
+      contractAddress = ''
+      tokenId = 'Not set'
+      lastUpdated = 'Not set'
+      buttonText = 'Set Mirror NFT'
+    } else {
+      contractAddress = nft?.collection.address
+      tokenId = nft?.token_id
+      lastUpdated = shortenString(nft?.collection.name, 20)
+      buttonText = 'Update NFT'
+      if (!isPageLoading) {
+        const nftImg = getNFTImg()
+        mirrorCardContent = <img src={nftImg} alt="Magic Mirror NFT" />
+      }
     }
+  }
+
+  if (showNfts) {
+    buttonText = 'Confirm'
   }
 
   const mirrorCardDescription = (
@@ -183,9 +194,26 @@ export const NFTPage = () => {
               />
             )}
             {isPageLoading ? null : (
-              <Button onClick={handleButtonClick} isLoading={isButtonSpinning}>
-                <span>{buttonText}</span>
-              </Button>
+              <div className="card__buttonContainer">
+                {showNfts && (
+                  <Button
+                    isSecondary={true}
+                    onClick={() => {
+                      setShowNfts(false)
+                    }}
+                    isLoading={isButtonSpinning}
+                  >
+                    <span>{'Back'}</span>
+                  </Button>
+                )}
+                <Button
+                  isDisabled={showNfts && activeNFT === -1}
+                  onClick={handleButtonClick}
+                  isLoading={isButtonSpinning}
+                >
+                  <span>{buttonText}</span>
+                </Button>
+              </div>
             )}
           </div>
         }

@@ -72,6 +72,7 @@ body {
   &.light {
     background-color: $grey-0;
     --text-color: #{$grey-600};
+    --text-color-disabled: #{$grey-400};
     --card: #{$grey-0};
     --card-hover: #{$grey-100};
     --card-active: #{$grey-200};
@@ -114,6 +115,7 @@ body {
   &.dark {
     background-color: $black;
     --text-color: #{$grey-0};
+    --text-color-disabled: #{$grey-400};
     --card: #{$grey-800};
     --card-hover: #{$grey-700};
     --card-active: #{$grey-600};
