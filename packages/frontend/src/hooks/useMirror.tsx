@@ -16,7 +16,14 @@ export const getMirroredNFT = async (address: string): Promise<any> => {
     MagicMirrorManager.abi,
     optimism
   )
-  return manager.getMirroredNFT(address)
+
+  try {
+    const result = await manager.getMirroredNFT(address)
+    return result
+  } catch (error) {
+    console.log(error)
+    return null
+  }
 }
 
 // Calls Mirror NFT contract to see if account owns the respective mirror NFT.

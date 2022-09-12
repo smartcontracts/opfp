@@ -33,6 +33,9 @@ export const NFTPage = () => {
   const [isPageLoading, setIsPageLoading] = useState(true)
   const [isButtonSpinning] = useState(false)
 
+  const mirrorIsEmpty = !mirroredNFT && hasNFT
+  console.log('mirrorIsEmpty', !mirroredNFT, hasNFT, mirrorIsEmpty)
+
   useEffect(() => {
     // Initialization function for page data.
     const initialize = async (account) => {
@@ -55,7 +58,7 @@ export const NFTPage = () => {
       // Check to see if the user has the mirrored NFT.
       try {
         const _hasNFT = await getHasNft(account)
-        setHasNft(_hasNFT)
+        setHasNft(_hasNFT !== '')
       } catch (error) {
         setHasNft(false)
         console.log(error)

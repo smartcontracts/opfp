@@ -23,7 +23,6 @@ export const NFTPageContent = ({
   activeNFT,
   setActiveNFT,
 }: NFTCardProps) => {
-  console.log(nfts)
   if (showSkeleton) {
     return (
       <div className="card__skeletonContainer">

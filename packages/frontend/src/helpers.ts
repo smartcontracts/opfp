@@ -21,20 +21,27 @@ export const shortenAddress = (address: string) => {
 }
 
 export const getNftsByAddress = async (address: string) => {
-  const res = await fetch(
-    `https://api.quixotic.io/api/v1/account/${address}/assets/`,
-    {
-      headers: {
-        'X-API-KEY': QUIXOTIC_API_KEY,
-      },
-    }
-  )
-
-  const assets = await res.json()
-  return assets.results
+  try {
+    const response = await fetch(
+      `https://api.qx.app/api/v1/account/${address}/assets/`,
+      {
+        headers: {
+          'X-API-KEY': QUIXOTIC_API_KEY,
+        },
+      }
+    )
+    const json = await response.json()
+    return json.results
+  } catch (e) {
+    console.error(e)
+    return []
+  }
 }
 
 export const getNftDetails = async (contract: string, id: string) => {
+  if (!contract || !id) {
+    return null
+  }
   const res = await fetch(
     `https://api.qx.app/api/v1/asset/${contract}:${id}/`,
     {
