@@ -32,6 +32,6 @@
     "node-fetch": "2.6.7"
   },
   "dependencies": {
-    "@opfp/contracts": "^0.1.0"
+    "@opfp/contracts": "^0.1.1"
   }
 }
