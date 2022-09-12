@@ -1,6 +1,6 @@
 {
   "name": "@opfp/backend",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "OPFP backend",
   "main": "dist/index",
   "types": "dist/index",

@@ -1,11 +1,12 @@
 {
   "name": "@opfp/contracts",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "OPFP smart contracts",
   "main": "dist/index",
   "types": "dist/index",
   "files": [
-    "dist/*"
+    "dist/*",
+    "artifacts/contracts/**/*.json"
   ],
   "scripts": {
     "build": "yarn build:contracts",

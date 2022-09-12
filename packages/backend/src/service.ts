@@ -3,7 +3,7 @@ import {
   ExpressRouter,
   validators,
 } from '@eth-optimism/common-ts'
-import { abi as ERC721 } from '@opfp/contracts/artifacts/@openzeppelin/contracts/token/ERC721/ERC721.sol/ERC721.json'
+import { abi as MagicMirrorNFT } from '@opfp/contracts/artifacts/contracts/MagicMirrorNFT.sol/MagicMirrorNFT.json'
 import { abi as MagicMirrorManager } from '@opfp/contracts/artifacts/contracts/MagicMirrorManager.sol/MagicMirrorManager.json'
 import { ethers } from 'ethers'
 import fetch from 'node-fetch'
@@ -72,7 +72,11 @@ export class OPFPBackendService extends BaseServiceV2<Options, Metrics, State> {
 
       let uri: string
       try {
-        const nft = new ethers.Contract(mirrored.token, ERC721, provider)
+        const nft = new ethers.Contract(
+          mirrored.token,
+          MagicMirrorNFT,
+          provider
+        )
         uri = await nft.tokenURI(mirrored.id)
       } catch (err) {
         return res.status(400).send('unable to get token URI from contract')
