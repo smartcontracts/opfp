@@ -6,7 +6,9 @@
   "license": "MIT",
   "workspaces": {
     "packages": [
-      "packages/*"
+      "packages/contracts",
+      "packages/backend",
+      "packages/frontend"
     ]
   },
   "scripts": {
