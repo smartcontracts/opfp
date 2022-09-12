@@ -8,7 +8,7 @@
     "dist/*"
   ],
   "scripts": {
-    "build": "yarn build:contracts && yarn build:typescript",
+    "build": "yarn build:contracts",
     "build:contracts": "hardhat compile",
     "build:typescript": "tsc -p ./tsconfig.json",
     "clean": "rimraf dist/ ./tsconfig.tsbuildinfo",
