@@ -40,7 +40,8 @@ export const Header = () => {
               navigate('/')
             }}
           >
-            <span className="red"></span>
+            MagicMirror
+            {/* <span className="red"></span>
             <span className="red">M</span>
             <span className="orange">a</span>
             <span className="yellow">g</span>
@@ -52,7 +53,7 @@ export const Header = () => {
             <span className="yellow">r</span>
             <span className="green">o</span>
             <span className="blue">r</span>
-            <span className="purple"></span>
+            <span className="purple"></span> */}
           </p>
         </li>
         <li>
