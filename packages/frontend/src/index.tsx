@@ -1,7 +1,12 @@
-import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.scss'
 import { BrowserRouter } from 'react-router-dom'
+import { SkeletonTheme } from 'react-loading-skeleton'
+import '@rainbow-me/rainbowkit/styles.css'
+import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit'
+import { chain, configureChains, createClient, WagmiConfig } from 'wagmi'
+import { alchemyProvider } from 'wagmi/providers/alchemy'
+import { publicProvider } from 'wagmi/providers/public'
 import {
   Mainnet,
   DAppProvider,
@@ -10,11 +15,26 @@ import {
   Optimism,
   Rinkeby,
 } from '@usedapp/core'
-import { getDefaultProvider } from 'ethers'
-import { SkeletonTheme } from 'react-loading-skeleton'
-
 import App from './App'
 import reportWebVitals from './reportWebVitals'
+// import { UseDappRainbowKitAdapter } from './hooks/UseDappRainbowKitAdapter'
+import { getDefaultProvider } from 'ethers'
+
+const { chains, provider } = configureChains(
+  [chain.mainnet, chain.polygon, chain.optimism, chain.arbitrum],
+  [alchemyProvider({ apiKey: process.env.ALCHEMY_ID }), publicProvider()]
+)
+
+const { connectors } = getDefaultWallets({
+  appName: 'My RainbowKit App',
+  chains,
+})
+
+const wagmiClient = createClient({
+  autoConnect: true,
+  connectors,
+  provider,
+})
 
 const config: Config = {
   readOnlyChainId: Mainnet.chainId,
@@ -28,16 +48,21 @@ const config: Config = {
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
-  <DAppProvider config={config}>
-    <BrowserRouter>
-      <SkeletonTheme
-        baseColor="var(--skeleton-bg)"
-        highlightColor="var(--skeleton-highlight)"
-      >
-        <App />
-      </SkeletonTheme>
-    </BrowserRouter>
-  </DAppProvider>
+  <WagmiConfig client={wagmiClient}>
+    <RainbowKitProvider chains={chains}>
+      <BrowserRouter>
+        <SkeletonTheme
+          baseColor="var(--skeleton-bg)"
+          highlightColor="var(--skeleton-highlight)"
+        >
+          <DAppProvider config={config}>
+            {/* <UseDappRainbowKitAdapter /> */}
+            <App />
+          </DAppProvider>
+        </SkeletonTheme>
+      </BrowserRouter>
+    </RainbowKitProvider>
+  </WagmiConfig>
 )
 
 // If you want to start measuring performance in your app, pass a function

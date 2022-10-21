@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
-import { useEthers } from '@usedapp/core'
 import { useEffect } from 'react'
+import { useConnectModal } from '@rainbow-me/rainbowkit'
+import { useAccount } from 'wagmi'
 
 import { MirrorCard } from '../../components/MirrorCard'
 import { AppLayout } from '../../layout/AppLayout/AppLayout'
@@ -12,11 +13,15 @@ import WALLET_ICON from '../../assets/wallet.webp'
 import './Connect.scss'
 
 export const Connect = () => {
-  const { activateBrowserWallet, account } = useEthers()
+  const { address } = useAccount()
+
+  console.log(address)
   const navigate = useNavigate()
 
+  const { openConnectModal } = useConnectModal()
+
   useEffect(() => {
-    if (account) {
+    if (address) {
       navigate('/nft')
     }
   })
@@ -45,9 +50,7 @@ export const Connect = () => {
         <div className="connect__content">
           <button
             className="connect__button metamask"
-            onClick={() => {
-              activateBrowserWallet()
-            }}
+            onClick={openConnectModal}
           >
             <div className="wrapper">
               <img src={METAMASK_LOGO} alt="MetaMask" />
