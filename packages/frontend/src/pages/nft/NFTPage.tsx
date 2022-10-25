@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
-import { useEthers } from '@usedapp/core'
 import { useNavigate } from 'react-router-dom'
-import { useAccount, useNetwork } from 'wagmi'
+import { useAccount, useNetwork, useSwitchNetwork } from 'wagmi'
 
 import { Button } from '../../components/Button'
 import { MirrorCard } from '../../components/MirrorCard'
@@ -21,8 +20,9 @@ import './NFTPage.scss'
 import { MIRROR_MANAGER_NFT_CHAIN_ID, MIRROR_NFT_CHAIN_ID } from '../../config'
 
 export const NFTPage = () => {
-  const { chainId, switchNetwork } = useEthers()
   const { chain, chains } = useNetwork()
+  const { switchNetwork } = useSwitchNetwork()
+
   const { address } = useAccount()
   console.log(chain, chains)
 
@@ -106,21 +106,21 @@ export const NFTPage = () => {
   const handleButtonClick = async () => {
     if (!hasNFT && !showNfts) {
       // mint mirror nft
-      if (chainId !== MIRROR_NFT_CHAIN_ID) {
-        switchNetwork(MIRROR_NFT_CHAIN_ID)
+      if (chain?.id !== MIRROR_NFT_CHAIN_ID) {
+        switchNetwork?.(MIRROR_NFT_CHAIN_ID)
       }
       mint()
     } else if (hasNFT && !showNfts) {
       // toggle to show NFTs in wallet
 
-      if (chainId !== MIRROR_MANAGER_NFT_CHAIN_ID) {
-        await switchNetwork(MIRROR_MANAGER_NFT_CHAIN_ID)
+      if (chain?.id !== MIRROR_MANAGER_NFT_CHAIN_ID) {
+        await switchNetwork?.(MIRROR_MANAGER_NFT_CHAIN_ID)
         setShowNfts(true)
       }
     } else {
       // Call magic mint manager to update NFT metadata
-      if (chainId !== MIRROR_MANAGER_NFT_CHAIN_ID) {
-        switchNetwork(MIRROR_MANAGER_NFT_CHAIN_ID)
+      if (chain?.id !== MIRROR_MANAGER_NFT_CHAIN_ID) {
+        switchNetwork?.(MIRROR_MANAGER_NFT_CHAIN_ID)
       }
       const tokenId = nfts[activeNFT].token_id
       const contract = nfts[activeNFT].collection.address

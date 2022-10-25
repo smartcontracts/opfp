@@ -2,7 +2,8 @@ import './NetworkDropdown.scss'
 
 import ClickAwayListener from 'react-click-away-listener'
 import { useState } from 'react'
-import { useEthers, Mainnet, Optimism, Rinkeby } from '@usedapp/core'
+import { Mainnet, Optimism, Rinkeby } from '@usedapp/core'
+import { useNetwork, useSwitchNetwork } from 'wagmi'
 
 import {
   OP_NETWORK,
@@ -14,7 +15,10 @@ import {
 
 export const NetworkDropdown = ({}) => {
   const [showDropdown, setShowDropdown] = useState(false)
-  const { switchNetwork, chainId } = useEthers()
+
+  const { switchNetwork } = useSwitchNetwork()
+  const { chain } = useNetwork()
+  const chainId = chain?.id
 
   const handleClickAway = () => {
     setShowDropdown(false)
@@ -45,7 +49,7 @@ export const NetworkDropdown = ({}) => {
                 key={index}
                 onClick={() => {
                   setShowDropdown(!showDropdown)
-                  switchNetwork(network.chainId)
+                  switchNetwork?.(network.chainId)
                 }}
                 className="networkDropdown__item"
               >
