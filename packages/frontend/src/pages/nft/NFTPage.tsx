@@ -15,7 +15,12 @@ import { NetworkDropdown } from '../../components/NetworkDropdown/NetworkDropdow
 import { NFTPageContent } from '../../components/NFTPageContent'
 import { Account } from '../../components/Account'
 import { mintDescription } from './constants'
-import { getHasNft, getMirroredNFT, useMirror } from '../../hooks/useMirror'
+import {
+  getHasNft,
+  getMirroredNFT,
+  useMirror,
+  useUpdateNft,
+} from '../../hooks/useMirror'
 import './NFTPage.scss'
 import { MIRROR_MANAGER_NFT_CHAIN_ID, MIRROR_NFT_CHAIN_ID } from '../../config'
 
@@ -27,8 +32,7 @@ export const NFTPage = () => {
   console.log(chain, chains)
 
   const navigate = useNavigate()
-  const { mint, update, mintState } = useMirror()
-  console.log(mintState)
+  const { mint, mintState } = useMirror()
 
   const [showNfts, setShowNfts] = useState(false)
   const [hasNFT, setHasNft] = useState(false)
@@ -37,7 +41,7 @@ export const NFTPage = () => {
   const [nft, setNft] = useState<any>(null)
   const [activeNFT, setActiveNFT] = useState(-1)
   const [isPageLoading, setIsPageLoading] = useState(true)
-  const [isButtonSpinning] = useState(true)
+  const isButtonSpinning = mintState.isLoading
 
   // const mirrorIsEmpty = !mirroredNFT && hasNFT
   // console.log('mirrorIsEmpty', !mirroredNFT, hasNFT, mirrorIsEmpty)
@@ -109,14 +113,14 @@ export const NFTPage = () => {
       if (chain?.id !== MIRROR_NFT_CHAIN_ID) {
         switchNetwork?.(MIRROR_NFT_CHAIN_ID)
       }
-      mint()
+      mint?.()
     } else if (hasNFT && !showNfts) {
       // toggle to show NFTs in wallet
 
       if (chain?.id !== MIRROR_MANAGER_NFT_CHAIN_ID) {
         await switchNetwork?.(MIRROR_MANAGER_NFT_CHAIN_ID)
-        setShowNfts(true)
       }
+      setShowNfts(true)
     } else {
       // Call magic mint manager to update NFT metadata
       if (chain?.id !== MIRROR_MANAGER_NFT_CHAIN_ID) {
@@ -124,7 +128,8 @@ export const NFTPage = () => {
       }
       const tokenId = nfts[activeNFT].token_id
       const contract = nfts[activeNFT].collection.address
-      update({ token: contract, id: tokenId })
+      const { update } = useUpdateNft(contract, tokenId)
+      update?.()
     }
   }
 

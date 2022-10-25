@@ -19,7 +19,7 @@ export const CONTRACTS = {
   },
 }
 
-export const QUIXOTIC_API_KEY = 'UqEiG81z.uzM8dSiqswNouNMeRRjGTGMpvbDwHOLC'
+export const QUIXOTIC_API_KEY = process.env.REACT_APP_QUIXOTIC_API_KEY as string
 
 export const MIRROR_NFT_CHAIN_ID = Goerli.chainId
 export const MIRROR_NFT_NETWORK = 'goerli'

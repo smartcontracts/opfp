@@ -1,7 +1,7 @@
-import { useContractFunction } from '@usedapp/core'
 import MagicMirrorNFT from '@opfp/contracts/artifacts/contracts/MagicMirrorNFT.sol/MagicMirrorNFT.json'
 import MagicMirrorManager from '@opfp/contracts/artifacts/contracts/MagicMirrorManager.sol/MagicMirrorManager.json'
-import { Contract, ethers } from 'ethers'
+import { ethers } from 'ethers'
+import { useContractWrite, usePrepareContractWrite } from 'wagmi'
 
 import {
   CONTRACTS,
@@ -46,29 +46,48 @@ export const getHasNft = async (account) => {
   return mirror.ownerOf(tokenID)
 }
 
+export const useUpdateNft = (contract, token) => {
+  const { config: setMirroredNFTConfig } = usePrepareContractWrite({
+    addressOrName: CONTRACTS.MIRROR_MANAGER[MIRROR_MANAGER_NFT_CHAIN_ID],
+    contractInterface: MagicMirrorManager.abi,
+    functionName: 'setMirroredNFT',
+    args: [contract, token],
+  })
+
+  const {
+    data,
+    isLoading,
+    write: update,
+  } = useContractWrite(setMirroredNFTConfig)
+
+  const updateState = {
+    data,
+    isLoading,
+  }
+
+  return { update, updateState }
+}
+
 // Hook exposing mint + update calls for mirror NFT.
 export const useMirror = () => {
-  const mirrorContract = new Contract(
-    CONTRACTS.MIRROR_NFT[MIRROR_NFT_CHAIN_ID],
-    MagicMirrorNFT.abi
-  )
+  const { config: mintConfig } = usePrepareContractWrite({
+    addressOrName: CONTRACTS.MIRROR_NFT[MIRROR_NFT_CHAIN_ID],
+    contractInterface: MagicMirrorNFT.abi,
+    functionName: 'mint',
+  })
 
-  const { send: mint, state: mintState } = useContractFunction(
-    mirrorContract,
-    'mint',
-    {}
-  )
+  const {
+    data: mintData,
+    isLoading: mintIsLoading,
+    isSuccess: mintIsSuccess,
+    write: mint,
+  } = useContractWrite(mintConfig)
 
-  const mirrorManagerContract = new Contract(
-    CONTRACTS.MIRROR_MANAGER[MIRROR_MANAGER_NFT_CHAIN_ID],
-    MagicMirrorManager.abi
-  )
+  const mintState = {
+    data: mintData,
+    isLoading: mintIsLoading,
+    isSuccess: mintIsSuccess,
+  }
 
-  const { send: update, state: updateState } = useContractFunction(
-    mirrorManagerContract,
-    'setMirroredNFT',
-    {}
-  )
-
-  return { mint, mintState, update, updateState }
+  return { mint, mintState }
 }
