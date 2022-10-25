@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useEthers } from '@usedapp/core'
 import { useNavigate } from 'react-router-dom'
+import { useAccount, useNetwork } from 'wagmi'
 
 import { Button } from '../../components/Button'
 import { MirrorCard } from '../../components/MirrorCard'
@@ -20,8 +21,11 @@ import './NFTPage.scss'
 import { MIRROR_MANAGER_NFT_CHAIN_ID, MIRROR_NFT_CHAIN_ID } from '../../config'
 
 export const NFTPage = () => {
-  const { account, chainId, switchNetwork } = useEthers()
-  console.log(chainId)
+  const { chainId, switchNetwork } = useEthers()
+  const { chain, chains } = useNetwork()
+  const { address } = useAccount()
+  console.log(chain, chains)
+
   const navigate = useNavigate()
   const { mint, update, mintState } = useMirror()
   console.log(mintState)
@@ -40,11 +44,11 @@ export const NFTPage = () => {
 
   useEffect(() => {
     // Initialization function for page data.
-    const initialize = async (account) => {
+    const initialize = async (address) => {
       setIsPageLoading(true)
       // Get the mirror NFT + load traits if the mirrored NFT exists.
       try {
-        const _mirroredNFT = await getMirroredNFT(account)
+        const _mirroredNFT = await getMirroredNFT(address)
         setMirroredNFT(_mirroredNFT)
 
         const opfp = await getNftDetails(
@@ -59,7 +63,7 @@ export const NFTPage = () => {
 
       // Check to see if the user has the mirrored NFT.
       try {
-        const _hasNFT = await getHasNft(account)
+        const _hasNFT = await getHasNft(address)
 
         setHasNft(_hasNFT !== '')
       } catch (error) {
@@ -68,18 +72,18 @@ export const NFTPage = () => {
       }
 
       // Gets NFTs in users wallet on optimism.
-      const _nfts = await getNftsByAddress(account)
+      const _nfts = await getNftsByAddress(address)
       setNfts(_nfts)
       setIsPageLoading(false)
     }
 
-    if (!account) {
+    if (!address) {
       navigate('/connect')
     } else {
       // Load NFTs
-      initialize(account)
+      initialize(address)
     }
-  }, [account])
+  }, [address])
 
   // useEffect(() => {
   //   if (mintState.status === )
@@ -170,7 +174,7 @@ export const NFTPage = () => {
     </div>
   )
 
-  if (!account) {
+  if (!address) {
     return null
   } else {
     return (
@@ -185,7 +189,7 @@ export const NFTPage = () => {
         content={
           <div className="nftPage__content">
             <NetworkDropdown />
-            <Account account={account} />
+            <Account account={address} />
             {!isPageLoading && !hasNFT ? (
               mintDescription
             ) : (
