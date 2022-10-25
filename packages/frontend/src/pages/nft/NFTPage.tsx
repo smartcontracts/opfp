@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useEthers, Rinkeby, Optimism } from '@usedapp/core'
 import { useNavigate } from 'react-router-dom'
+import { useNetwork } from 'wagmi'
 
 import { Button } from '../../components/Button'
 import { MirrorCard } from '../../components/MirrorCard'
@@ -21,6 +22,9 @@ import './NFTPage.scss'
 
 export const NFTPage = () => {
   const { account, chainId, switchNetwork } = useEthers()
+  const { chain, chains } = useNetwork()
+  console.log(chain, chains)
+
   const navigate = useNavigate()
   const { mint, update } = useMirror()
 

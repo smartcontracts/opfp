@@ -15,10 +15,11 @@ import {
   Optimism,
   Rinkeby,
 } from '@usedapp/core'
+import { getDefaultProvider } from 'ethers'
+
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 // import { UseDappRainbowKitAdapter } from './hooks/UseDappRainbowKitAdapter'
-import { getDefaultProvider } from 'ethers'
 
 const { chains, provider } = configureChains(
   [chain.mainnet, chain.polygon, chain.optimism, chain.arbitrum],
