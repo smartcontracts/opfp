@@ -1,20 +1,23 @@
-import { useContractFunction, Rinkeby, Optimism } from '@usedapp/core'
+import { useContractFunction } from '@usedapp/core'
 import MagicMirrorNFT from '@opfp/contracts/artifacts/contracts/MagicMirrorNFT.sol/MagicMirrorNFT.json'
 import MagicMirrorManager from '@opfp/contracts/artifacts/contracts/MagicMirrorManager.sol/MagicMirrorManager.json'
 import { Contract, ethers } from 'ethers'
 
-import { CONTRACTS } from '../config'
-
-// Config
-const MIRROR_NFT_CHAIN_ID = Rinkeby.chainId
+import {
+  CONTRACTS,
+  MIRROR_MANAGER_NETWORK,
+  MIRROR_MANAGER_NFT_CHAIN_ID,
+  MIRROR_NFT_CHAIN_ID,
+  MIRROR_NFT_NETWORK,
+} from '../config'
 
 // Calls Mirror Manager contract to get mirror NFT contract address + token id.
 export const getMirroredNFT = async (address: string): Promise<any> => {
-  const optimism = new ethers.providers.InfuraProvider('optimism')
+  const network = new ethers.providers.InfuraProvider(MIRROR_MANAGER_NETWORK)
   const manager = new ethers.Contract(
-    CONTRACTS.MIRROR_MANAGER[Optimism.chainId],
+    CONTRACTS.MIRROR_MANAGER[MIRROR_MANAGER_NFT_CHAIN_ID],
     MagicMirrorManager.abi,
-    optimism
+    network
   )
 
   try {
@@ -28,12 +31,12 @@ export const getMirroredNFT = async (address: string): Promise<any> => {
 
 // Calls Mirror NFT contract to see if account owns the respective mirror NFT.
 export const getHasNft = async (account) => {
-  const rinkeby = new ethers.providers.InfuraProvider('rinkeby')
+  const network = new ethers.providers.InfuraProvider(MIRROR_NFT_NETWORK)
 
   const mirror = new ethers.Contract(
     CONTRACTS.MIRROR_NFT[MIRROR_NFT_CHAIN_ID],
     MagicMirrorNFT.abi,
-    rinkeby
+    network
   )
 
   const tokenID = account
@@ -57,7 +60,7 @@ export const useMirror = () => {
   )
 
   const mirrorManagerContract = new Contract(
-    CONTRACTS.MIRROR_MANAGER[Optimism.chainId],
+    CONTRACTS.MIRROR_MANAGER[MIRROR_MANAGER_NFT_CHAIN_ID],
     MagicMirrorManager.abi
   )
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useEthers, Rinkeby, Optimism } from '@usedapp/core'
+import { useEthers } from '@usedapp/core'
 import { useNavigate } from 'react-router-dom'
 
 import { Button } from '../../components/Button'
@@ -16,13 +16,15 @@ import { NFTPageContent } from '../../components/NFTPageContent'
 import { Account } from '../../components/Account'
 import { mintDescription } from './constants'
 import { getHasNft, getMirroredNFT, useMirror } from '../../hooks/useMirror'
-
 import './NFTPage.scss'
+import { MIRROR_MANAGER_NFT_CHAIN_ID, MIRROR_NFT_CHAIN_ID } from '../../config'
 
 export const NFTPage = () => {
   const { account, chainId, switchNetwork } = useEthers()
+  console.log(chainId)
   const navigate = useNavigate()
-  const { mint, update } = useMirror()
+  const { mint, update, mintState } = useMirror()
+  console.log(mintState)
 
   const [showNfts, setShowNfts] = useState(false)
   const [hasNFT, setHasNft] = useState(false)
@@ -31,10 +33,10 @@ export const NFTPage = () => {
   const [nft, setNft] = useState<any>(null)
   const [activeNFT, setActiveNFT] = useState(-1)
   const [isPageLoading, setIsPageLoading] = useState(true)
-  const [isButtonSpinning] = useState(false)
+  const [isButtonSpinning] = useState(true)
 
-  const mirrorIsEmpty = !mirroredNFT && hasNFT
-  console.log('mirrorIsEmpty', !mirroredNFT, hasNFT, mirrorIsEmpty)
+  // const mirrorIsEmpty = !mirroredNFT && hasNFT
+  // console.log('mirrorIsEmpty', !mirroredNFT, hasNFT, mirrorIsEmpty)
 
   useEffect(() => {
     // Initialization function for page data.
@@ -58,6 +60,7 @@ export const NFTPage = () => {
       // Check to see if the user has the mirrored NFT.
       try {
         const _hasNFT = await getHasNft(account)
+
         setHasNft(_hasNFT !== '')
       } catch (error) {
         setHasNft(false)
@@ -78,6 +81,10 @@ export const NFTPage = () => {
     }
   }, [account])
 
+  // useEffect(() => {
+  //   if (mintState.status === )
+  // }, [])
+
   const getNFTImg = () => {
     let img = ''
     nfts.forEach((nft) => {
@@ -95,21 +102,21 @@ export const NFTPage = () => {
   const handleButtonClick = async () => {
     if (!hasNFT && !showNfts) {
       // mint mirror nft
-      if (chainId !== Rinkeby.chainId) {
-        switchNetwork(Rinkeby.chainId)
+      if (chainId !== MIRROR_NFT_CHAIN_ID) {
+        switchNetwork(MIRROR_NFT_CHAIN_ID)
       }
       mint()
     } else if (hasNFT && !showNfts) {
       // toggle to show NFTs in wallet
-      if (chainId !== Optimism.chainId) {
-        await switchNetwork(Optimism.chainId)
-      } else {
+
+      if (chainId !== MIRROR_MANAGER_NFT_CHAIN_ID) {
+        await switchNetwork(MIRROR_MANAGER_NFT_CHAIN_ID)
         setShowNfts(true)
       }
     } else {
       // Call magic mint manager to update NFT metadata
-      if (chainId !== Optimism.chainId) {
-        switchNetwork(Optimism.chainId)
+      if (chainId !== MIRROR_MANAGER_NFT_CHAIN_ID) {
+        switchNetwork(MIRROR_MANAGER_NFT_CHAIN_ID)
       }
       const tokenId = nfts[activeNFT].token_id
       const contract = nfts[activeNFT].collection.address

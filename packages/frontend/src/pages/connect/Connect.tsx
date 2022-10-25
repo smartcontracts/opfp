@@ -5,8 +5,8 @@ import { useEffect } from 'react'
 import { MirrorCard } from '../../components/MirrorCard'
 import { AppLayout } from '../../layout/AppLayout/AppLayout'
 import METAMASK_LOGO from '../../assets/metamask-logo.png'
-import WALLET_CONNECT_LOGO from '../../assets/wallet-connect-logo.png'
-import COINBASE_LOGO from '../../assets/coinbase-logo.png'
+// import WALLET_CONNECT_LOGO from '../../assets/wallet-connect-logo.png'
+// import COINBASE_LOGO from '../../assets/coinbase-logo.png'
 import WALLET_ICON from '../../assets/wallet.webp'
 
 import './Connect.scss'
@@ -54,7 +54,10 @@ export const Connect = () => {
               <span>MetaMask</span>
             </div>
           </button>
-          <button className="connect__button mobile">
+          <p>
+            Currently MagicMirror only supports connection via MetaMask wallet
+          </p>
+          {/* <button className="connect__button mobile">
             <div className="wrapper">
               <img src={WALLET_CONNECT_LOGO} alt="Wallet connect" />
               <span>Mobile wallet</span>
@@ -65,7 +68,7 @@ export const Connect = () => {
               <img src={COINBASE_LOGO} alt="Coinbase" />
               <span>Coinbase wallet</span>
             </div>
-          </button>
+          </button> */}
         </div>
       }
     />
