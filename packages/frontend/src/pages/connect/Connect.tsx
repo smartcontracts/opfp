@@ -5,19 +5,13 @@ import { useAccount } from 'wagmi'
 
 import { MirrorCard } from '../../components/MirrorCard'
 import { AppLayout } from '../../layout/AppLayout/AppLayout'
-import METAMASK_LOGO from '../../assets/metamask-logo.png'
-// import WALLET_CONNECT_LOGO from '../../assets/wallet-connect-logo.png'
-// import COINBASE_LOGO from '../../assets/coinbase-logo.png'
 import WALLET_ICON from '../../assets/wallet.webp'
-
 import './Connect.scss'
+import { Button } from '../../components/Button'
 
 export const Connect = () => {
   const { address } = useAccount()
-
-  console.log(address)
   const navigate = useNavigate()
-
   const { openConnectModal } = useConnectModal()
 
   useEffect(() => {
@@ -48,17 +42,9 @@ export const Connect = () => {
       }
       content={
         <div className="connect__content">
-          <button
-            className="connect__button metamask"
-            onClick={openConnectModal}
-          >
-            <div className="wrapper">
-              <img src={METAMASK_LOGO} alt="MetaMask" />
-              <span>MetaMask</span>
-            </div>
-          </button>
+          <Button onClick={openConnectModal}>Connect Wallet</Button>
           <p>
-            Currently MagicMirror only supports connection via MetaMask wallet
+            Please connect your wallet above in order to use the MagicMirror.
           </p>
           {/* <button className="connect__button mobile">
             <div className="wrapper">

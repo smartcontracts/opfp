@@ -3,7 +3,11 @@ import './index.scss'
 import { BrowserRouter } from 'react-router-dom'
 import { SkeletonTheme } from 'react-loading-skeleton'
 import '@rainbow-me/rainbowkit/styles.css'
-import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit'
+import {
+  darkTheme,
+  getDefaultWallets,
+  RainbowKitProvider,
+} from '@rainbow-me/rainbowkit'
 import { chain, configureChains, createClient, WagmiConfig } from 'wagmi'
 import { alchemyProvider } from 'wagmi/providers/alchemy'
 import { publicProvider } from 'wagmi/providers/public'
@@ -19,7 +23,6 @@ import { getDefaultProvider } from 'ethers'
 
 import App from './App'
 import reportWebVitals from './reportWebVitals'
-// import { UseDappRainbowKitAdapter } from './hooks/UseDappRainbowKitAdapter'
 
 const { chains, provider } = configureChains(
   [chain.mainnet, chain.polygon, chain.optimism, chain.arbitrum],
@@ -27,7 +30,7 @@ const { chains, provider } = configureChains(
 )
 
 const { connectors } = getDefaultWallets({
-  appName: 'My RainbowKit App',
+  appName: 'MagicMirror',
   chains,
 })
 
@@ -50,7 +53,14 @@ const config: Config = {
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <WagmiConfig client={wagmiClient}>
-    <RainbowKitProvider chains={chains}>
+    <RainbowKitProvider
+      theme={darkTheme({
+        accentColor: 'var(--primary-color)',
+        accentColorForeground: 'white',
+      })}
+      modalSize="compact"
+      chains={chains}
+    >
       <BrowserRouter>
         <SkeletonTheme
           baseColor="var(--skeleton-bg)"

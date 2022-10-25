@@ -66,7 +66,7 @@
   flex-direction: column;
 
   p {
-    margin-bottom: 12px;
+    margin: 12px 0px;
     font-size: 14px;
     font-weight: bold;
     text-align: center;
@@ -85,6 +85,7 @@
     font-style: italic;
     cursor: pointer;
     transition: all 200ms ease;
+    text-align: center;
 
     &:not(:last-child) {
       margin-bottom: 18px;
@@ -101,7 +102,7 @@
     .wrapper {
       display: flex;
       align-items: center;
-      justify-content: flex-start;
+      justify-content: center;
 
       img {
         height: 32px;
