@@ -35,9 +35,11 @@ export const getNftsByAddress = async (address: string, next = null) => {
 
     const json = await response.json()
 
-    const fetchNextPage = () => {
-      return getNftsByAddress(address, json.next)
-    }
+    const fetchNextPage = json.next
+      ? () => {
+          return getNftsByAddress(address, json.next)
+        }
+      : null
     return [json.results, fetchNextPage]
   } catch (e) {
     console.error(e)

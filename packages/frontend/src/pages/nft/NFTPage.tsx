@@ -55,8 +55,8 @@ export const NFTPage = () => {
     functionName: 'setMirroredNFT',
     args: [
       {
-        token: nfts.length && nfts[activeNFT]?.collection?.address,
-        id: nfts.length && nfts[activeNFT]?.token_id,
+        token: nfts?.length && nfts[activeNFT]?.collection?.address,
+        id: nfts?.length && nfts[activeNFT]?.token_id,
       },
     ],
   })
@@ -106,7 +106,6 @@ export const NFTPage = () => {
       setNfts(['loading'])
       // Gets NFTs in users wallet on optimism.
       getNftsByAddress(address).then((response) => {
-        console.log('d', response)
         const [walletNFTS, _fetchMoreNFTs] = response
         setNfts(walletNFTS)
         setFetchMoreNFTs(_fetchMoreNFTs)
@@ -201,7 +200,6 @@ export const NFTPage = () => {
   } else if (showNfts) {
     buttonText = 'Confirm'
   }
-
   const initialize = async (address) => {
     setIsPageLoading(true)
     // Get the mirror NFT + load traits if the mirrored NFT exists.
@@ -235,8 +233,9 @@ export const NFTPage = () => {
     setNfts(['loading'])
     // Gets NFTs in users wallet on optimism.
     getNftsByAddress(address).then((response) => {
-      console.log('d', response)
-      // setNfts(response)
+      const [walletNFTS, _fetchMoreNFTs] = response
+      setNfts(walletNFTS)
+      setFetchMoreNFTs(_fetchMoreNFTs)
     })
 
     setIsPageLoading(false)
@@ -311,7 +310,7 @@ export const NFTPage = () => {
                       setFetchMoreNFTs(nextFetchMore)
                     })
                   }}
-                  hasMoreNfts={true}
+                  hasMoreNfts={fetchMoreNFTs !== null}
                 />
               )}
               {isPageLoading ? null : (
