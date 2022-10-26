@@ -11,24 +11,19 @@ import {
 import { chain, configureChains, createClient, WagmiConfig } from 'wagmi'
 import { alchemyProvider } from 'wagmi/providers/alchemy'
 import { publicProvider } from 'wagmi/providers/public'
-import {
-  Mainnet,
-  DAppProvider,
-  Config,
-  Goerli,
-  Optimism,
-  Rinkeby,
-} from '@usedapp/core'
-import { getDefaultProvider } from 'ethers'
 
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 
 const { chains, provider } = configureChains(
   [chain.mainnet, chain.polygon, chain.optimism, chain.arbitrum],
-  [alchemyProvider({ apiKey: process.env.ALCHEMY_ID }), publicProvider()]
+  [
+    alchemyProvider({ apiKey: process.env.REACT_APP_ALCHEMY_ID }),
+    publicProvider(),
+  ]
 )
 
+console.log()
 const { connectors } = getDefaultWallets({
   appName: 'MagicMirror',
   chains,
@@ -39,16 +34,6 @@ const wagmiClient = createClient({
   connectors,
   provider,
 })
-
-const config: Config = {
-  readOnlyChainId: Mainnet.chainId,
-  readOnlyUrls: {
-    [Mainnet.chainId]: getDefaultProvider('mainnet'),
-    [Optimism.chainId]: getDefaultProvider('optimism'),
-    [Goerli.chainId]: getDefaultProvider('goerli'),
-    [Rinkeby.chainId]: getDefaultProvider('rinkeby'),
-  },
-}
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
@@ -66,10 +51,8 @@ root.render(
           baseColor="var(--skeleton-bg)"
           highlightColor="var(--skeleton-highlight)"
         >
-          <DAppProvider config={config}>
-            {/* <UseDappRainbowKitAdapter /> */}
-            <App />
-          </DAppProvider>
+          {/* <UseDappRainbowKitAdapter /> */}
+          <App />
         </SkeletonTheme>
       </BrowserRouter>
     </RainbowKitProvider>

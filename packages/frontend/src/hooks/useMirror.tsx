@@ -46,23 +46,37 @@ export const getHasNft = async (account) => {
   return mirror.ownerOf(tokenID)
 }
 
-export const useUpdateNft = (contract, token) => {
-  const { config: setMirroredNFTConfig } = usePrepareContractWrite({
-    addressOrName: CONTRACTS.MIRROR_MANAGER[MIRROR_MANAGER_NFT_CHAIN_ID],
-    contractInterface: MagicMirrorManager.abi,
-    functionName: 'setMirroredNFT',
-    args: [contract, token],
-  })
-
+export const useUpdateNft = () => {
   const {
     data,
     isLoading,
+    isSuccess,
     write: update,
-  } = useContractWrite(setMirroredNFTConfig)
+  } = useContractWrite({
+    mode: 'recklesslyUnprepared',
+    addressOrName: CONTRACTS.MIRROR_MANAGER[MIRROR_MANAGER_NFT_CHAIN_ID],
+    contractInterface: MagicMirrorManager.abi,
+    functionName: 'setMirroredNFT',
+    args: [],
+  })
+
+  // const { config: setMirroredNFTConfig } = usePrepareContractWrite({
+  //   addressOrName: CONTRACTS.MIRROR_MANAGER[MIRROR_MANAGER_NFT_CHAIN_ID],
+  //   contractInterface: MagicMirrorManager.abi,
+  //   functionName: 'setMirroredNFT',
+  //   args: [contract, token],
+  // })
+
+  // const {
+  //   data,
+  //   isLoading,
+  //   write: update,
+  // } = useContractWrite(setMirroredNFTConfig)
 
   const updateState = {
     data,
     isLoading,
+    isSuccess,
   }
 
   return { update, updateState }

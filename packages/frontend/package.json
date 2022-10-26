@@ -32,6 +32,7 @@
     "react-click-away-listener": "^2.2.1",
     "react-dom": "^18.2.0",
     "react-loading-skeleton": "^3.1.0",
+    "react-modal": "^3.16.1",
     "react-parallax-tilt": "^1.7.57",
     "react-router-dom": "6",
     "react-scripts": "5.0.1",

@@ -5,14 +5,14 @@
   border-radius: 18px;
   border: none;
   font-family: 'Rubik';
-  padding: 0px 18px;
+  padding: 12px 18px;
   font-size: 23px;
   font-weight: 800;
   font-style: italic;
   width: 100%;
   cursor: pointer;
   transition: all 200ms ease;
-  height: 62px;
+  min-height: 62px;
 
   &:hover {
     transform: scale(1.03);
