@@ -48,11 +48,17 @@ export const NFTPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [currentModal, setCurrentModal] = useState(ModalType.MINT)
 
+  console.log(nfts)
   const { config: setMirroredNFTConfig } = usePrepareContractWrite({
     addressOrName: CONTRACTS.MIRROR_MANAGER[MIRROR_MANAGER_NFT_CHAIN_ID],
     contractInterface: MagicMirrorManager.abi,
     functionName: 'setMirroredNFT',
-    args: [{ token: '0xf5de760f2e916647fd766B4AD9E85ff943cE3A2b', id: 636300 }],
+    args: [
+      {
+        token: nfts.length && nfts[activeNFT]?.collection?.address,
+        id: nfts.length && nfts[activeNFT]?.token_id,
+      },
+    ],
   })
 
   const { data, write: update } = useContractWrite(setMirroredNFTConfig)

@@ -1,6 +1,6 @@
 import { shortenAddress as extShortenAddress } from '@usedapp/core'
 
-import { QUIXOTIC_API_KEY } from './config'
+import { DEV_MODE, QUIXOTIC_API_KEY } from './config'
 
 export const shortenEthEns = (str: string) => {
   if (str.length <= 13) {
@@ -21,15 +21,18 @@ export const shortenAddress = (address: string) => {
 }
 
 export const getNftsByAddress = async (address: string) => {
+  const url = DEV_MODE ? 'testnet-api' : 'api'
+  debugger
   try {
     const response = await fetch(
-      `https://api.qx.app/api/v1/account/${address}/assets/`,
+      `https://${url}.qx.app/api/v1/account/${address}/assets/`,
       {
         headers: {
           'X-API-KEY': QUIXOTIC_API_KEY,
         },
       }
     )
+
     const json = await response.json()
     return json.results
   } catch (e) {
@@ -42,8 +45,9 @@ export const getNftDetails = async (contract: string, id: string) => {
   if (!contract || !id) {
     return null
   }
+  const url = DEV_MODE ? 'testnet-api' : 'api'
   const res = await fetch(
-    `https://api.qx.app/api/v1/asset/${contract}:${id}/`,
+    `https://${url}.qx.app/api/v1/asset/${contract}:${id}/`,
     {
       headers: {
         'X-API-KEY': QUIXOTIC_API_KEY,

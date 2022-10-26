@@ -19,10 +19,26 @@ export const CONTRACTS = {
   },
 }
 
-export const QUIXOTIC_API_KEY = process.env.REACT_APP_QUIXOTIC_API_KEY as string
+// Is the app in developer mode
+export const DEV_MODE = process.env.REACT_APP_DEV_MODE === 'true'
+console.log(DEV_MODE)
+
+// Set Quixotic Api key + url
+export const QUIXOTIC_API_KEY = DEV_MODE
+  ? (process.env.REACT_APP_QUIXOTIC_TEST_API_KEY as string)
+  : (process.env.REACT_APP_QUIXOTIC_API_KEY as string)
 
 export const MIRROR_NFT_CHAIN_ID = Goerli.chainId
 export const MIRROR_NFT_NETWORK = 'goerli'
 
 export const MIRROR_MANAGER_NFT_CHAIN_ID = OptimismGoerli.chainId
+
 export const MIRROR_MANAGER_NETWORK = 'optimism-goerli'
+
+// export const MIRROR_NFT_CHAIN_ID = DEV_MODE ? Goerli.chainId : Mainnet.chainId
+// export const MIRROR_NFT_NETWORK = DEV_MODE ? 'goerli' : 'mainnet'
+
+// export const MIRROR_MANAGER_NFT_CHAIN_ID = DEV_MODE
+//   ? OptimismGoerli.chainId
+//   : Optimism.chainId
+// export const MIRROR_MANAGER_NETWORK = DEV_MODE ? 'optimism-goerli' : 'optimism'
