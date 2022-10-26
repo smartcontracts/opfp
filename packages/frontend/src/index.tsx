@@ -16,14 +16,21 @@ import App from './App'
 import reportWebVitals from './reportWebVitals'
 
 const { chains, provider } = configureChains(
-  [chain.mainnet, chain.polygon, chain.optimism, chain.arbitrum],
+  [
+    chain.mainnet,
+    chain.polygon,
+    chain.optimism,
+    chain.arbitrum,
+    chain.optimismGoerli,
+    chain.goerli,
+  ],
   [
     alchemyProvider({ apiKey: process.env.REACT_APP_ALCHEMY_ID }),
     publicProvider(),
   ]
 )
 
-console.log()
+console.log(process.env.REACT_APP_ALCHEMY_ID)
 const { connectors } = getDefaultWallets({
   appName: 'MagicMirror',
   chains,

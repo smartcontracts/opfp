@@ -30,7 +30,7 @@ import {
   MIRROR_MANAGER_NFT_CHAIN_ID,
   MIRROR_NFT_CHAIN_ID,
 } from '../../config'
-import { ThemedModal } from '../../components/Modal/ThemedModal'
+import { ModalType, ThemedModal } from '../../components/Modal/ThemedModal'
 
 export const NFTPage = () => {
   const { chain } = useNetwork()
@@ -46,37 +46,26 @@ export const NFTPage = () => {
   const [activeNFT, setActiveNFT] = useState(-1)
   const [isPageLoading, setIsPageLoading] = useState(true)
   const [isModalOpen, setIsModalOpen] = useState(false)
-
-  // const currentContract = nfts[activeNFT]?.collection.address
-  // const currentToken = nfts[activeNFT]?.token_id
+  const [currentModal, setCurrentModal] = useState(ModalType.MINT)
 
   const { config: setMirroredNFTConfig } = usePrepareContractWrite({
     addressOrName: CONTRACTS.MIRROR_MANAGER[MIRROR_MANAGER_NFT_CHAIN_ID],
     contractInterface: MagicMirrorManager.abi,
     functionName: 'setMirroredNFT',
-    args: [{ token: '0xf5de760f2e916647fd766B4AD9E85ff943cE3A2b', id: 589460 }],
+    args: [{ token: '0xf5de760f2e916647fd766B4AD9E85ff943cE3A2b', id: 636300 }],
   })
 
-  const {
-    data,
-    isLoading,
-    isSuccess,
-    write: update,
-  } = useContractWrite(setMirroredNFTConfig)
+  const { data, write: update } = useContractWrite(setMirroredNFTConfig)
 
-  const updateState = { data, isLoading, isSuccess }
-
-  const {
-    data: updateData,
-    isError,
-    isLoading: isUpdateLoading,
-    status,
-  } = useWaitForTransaction({
-    hash: updateState?.data?.hash,
+  const { status: updateTransactionStatus } = useWaitForTransaction({
+    hash: data?.hash,
   })
 
-  console.log(updateData, isError, isUpdateLoading, status)
-  console.log(JSON.stringify(updateState?.data))
+  console.log(mintState.data, data)
+
+  const { status: mintTransactionStatus } = useWaitForTransaction({
+    hash: mintState.data?.hash,
+  })
 
   useEffect(() => {
     // Initialization function for page data.
@@ -86,11 +75,13 @@ export const NFTPage = () => {
       try {
         const _mirroredNFT = await getMirroredNFT(address)
         setMirroredNFT(_mirroredNFT)
+        console.log('a', _mirroredNFT)
 
         const opfp = await getNftDetails(
           _mirroredNFT?.token,
           _mirroredNFT?.id.toNumber()
         )
+        console.log('b', opfp)
 
         setNft(opfp)
       } catch (error) {
@@ -100,6 +91,7 @@ export const NFTPage = () => {
       // Check to see if the user has the mirrored NFT.
       try {
         const _hasNFT = await getHasNft(address)
+        console.log('c', _hasNFT)
 
         setHasNft(_hasNFT !== '')
       } catch (error) {
@@ -107,9 +99,13 @@ export const NFTPage = () => {
         console.log(error)
       }
 
+      setNfts(['loading'])
       // Gets NFTs in users wallet on optimism.
-      const _nfts = await getNftsByAddress(address)
-      setNfts(_nfts)
+      getNftsByAddress(address).then((response) => {
+        console.log('d', response)
+        setNfts(response)
+      })
+
       setIsPageLoading(false)
     }
 
@@ -142,6 +138,7 @@ export const NFTPage = () => {
         await switchNetwork?.(MIRROR_NFT_CHAIN_ID)
       } else {
         setIsModalOpen(true)
+        setCurrentModal(ModalType.MINT)
         mint?.()
       }
     } else if (hasNFT && !showNfts) {
@@ -156,8 +153,9 @@ export const NFTPage = () => {
       // Call magic mint manager to update NFT metadata
       if (chain?.id !== MIRROR_MANAGER_NFT_CHAIN_ID) {
         await switchNetwork?.(MIRROR_MANAGER_NFT_CHAIN_ID)
-      } else {
+      } else if (activeNFT !== -1) {
         console.log('UPDATE', update?.())
+        setCurrentModal(ModalType.UPDATE)
         setIsModalOpen(true)
         setShowNfts(false)
       }
@@ -204,11 +202,13 @@ export const NFTPage = () => {
     try {
       const _mirroredNFT = await getMirroredNFT(address)
       setMirroredNFT(_mirroredNFT)
+      console.log('a', _mirroredNFT)
 
       const opfp = await getNftDetails(
         _mirroredNFT?.token,
         _mirroredNFT?.id.toNumber()
       )
+      console.log('b', opfp)
 
       setNft(opfp)
     } catch (error) {
@@ -218,6 +218,7 @@ export const NFTPage = () => {
     // Check to see if the user has the mirrored NFT.
     try {
       const _hasNFT = await getHasNft(address)
+      console.log('c', _hasNFT)
 
       setHasNft(_hasNFT !== '')
     } catch (error) {
@@ -225,9 +226,13 @@ export const NFTPage = () => {
       console.log(error)
     }
 
+    setNfts(['loading'])
     // Gets NFTs in users wallet on optimism.
-    const _nfts = await getNftsByAddress(address)
-    setNfts(_nfts)
+    getNftsByAddress(address).then((response) => {
+      console.log('d', response)
+      setNfts(response)
+    })
+
     setIsPageLoading(false)
   }
 
@@ -249,8 +254,6 @@ export const NFTPage = () => {
     </div>
   )
 
-  const isButtonSpinning = mintState.isLoading || updateState.isLoading
-
   if (!address) {
     return null
   } else {
@@ -262,6 +265,12 @@ export const NFTPage = () => {
             setIsModalOpen(false)
             initialize(address)
           }}
+          transactionState={
+            currentModal === ModalType.MINT
+              ? mintTransactionStatus
+              : updateTransactionStatus
+          }
+          modalType={currentModal}
         ></ThemedModal>
         <AppLayout
           mirrorCard={
@@ -299,7 +308,6 @@ export const NFTPage = () => {
                       onClick={() => {
                         setShowNfts(false)
                       }}
-                      isLoading={isButtonSpinning}
                     >
                       <span>{'Back'}</span>
                     </Button>
@@ -307,7 +315,6 @@ export const NFTPage = () => {
                   <Button
                     isDisabled={showNfts && activeNFT === -1}
                     onClick={handleButtonClick}
-                    isLoading={isButtonSpinning}
                   >
                     <span>{buttonText}</span>
                   </Button>

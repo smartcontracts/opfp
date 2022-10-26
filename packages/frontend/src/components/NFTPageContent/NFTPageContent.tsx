@@ -46,6 +46,12 @@ export const NFTPageContent = ({
           </p>
         </div>
       )
+    } else if (nfts[0] === 'loading') {
+      return (
+        <div className="card__nftCardEmpty">
+          <p>Fetching NFTs in wallet...</p>
+        </div>
+      )
     } else {
       return (
         <div className="card__nftCardContainer">
