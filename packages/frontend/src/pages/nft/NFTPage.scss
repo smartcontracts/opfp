@@ -75,6 +75,28 @@
     }
   }
 
+  .card__loadingText {
+    color: var(--primary-color);
+    text-shadow: var(--primary-color) 0px 0px 7px;
+    margin: 8px 0px !important;
+    text-align: center;
+    width: 100%;
+    font-weight: 600;
+    animation: pulse infinite 2000ms;
+
+    @keyframes pulse {
+      0% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+  }
   .card__nftCardContainer {
     display: flex;
     flex-wrap: wrap;

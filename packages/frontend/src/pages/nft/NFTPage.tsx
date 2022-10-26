@@ -47,8 +47,8 @@ export const NFTPage = () => {
   const [isPageLoading, setIsPageLoading] = useState(true)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [currentModal, setCurrentModal] = useState(ModalType.MINT)
+  const [fetchMoreNFTs, setFetchMoreNFTs] = useState<Promise<any>>()
 
-  console.log(nfts)
   const { config: setMirroredNFTConfig } = usePrepareContractWrite({
     addressOrName: CONTRACTS.MIRROR_MANAGER[MIRROR_MANAGER_NFT_CHAIN_ID],
     contractInterface: MagicMirrorManager.abi,
@@ -66,8 +66,6 @@ export const NFTPage = () => {
   const { status: updateTransactionStatus } = useWaitForTransaction({
     hash: data?.hash,
   })
-
-  console.log(mintState.data, data)
 
   const { status: mintTransactionStatus } = useWaitForTransaction({
     hash: mintState.data?.hash,
@@ -109,7 +107,9 @@ export const NFTPage = () => {
       // Gets NFTs in users wallet on optimism.
       getNftsByAddress(address).then((response) => {
         console.log('d', response)
-        setNfts(response)
+        const [walletNFTS, _fetchMoreNFTs] = response
+        setNfts(walletNFTS)
+        setFetchMoreNFTs(_fetchMoreNFTs)
       })
 
       setIsPageLoading(false)
@@ -236,7 +236,7 @@ export const NFTPage = () => {
     // Gets NFTs in users wallet on optimism.
     getNftsByAddress(address).then((response) => {
       console.log('d', response)
-      setNfts(response)
+      // setNfts(response)
     })
 
     setIsPageLoading(false)
@@ -304,6 +304,14 @@ export const NFTPage = () => {
                   setActiveNFT={(nftIndex) => {
                     setActiveNFT(nftIndex)
                   }}
+                  fetchNextNfts={() => {
+                    fetchMoreNFTs?.then((response) => {
+                      const [nextNfts, nextFetchMore] = response
+                      setNfts(nfts.concat(nextNfts))
+                      setFetchMoreNFTs(nextFetchMore)
+                    })
+                  }}
+                  hasMoreNfts={true}
                 />
               )}
               {isPageLoading ? null : (

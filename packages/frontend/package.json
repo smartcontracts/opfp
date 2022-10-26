@@ -31,6 +31,7 @@
     "react": "^18.2.0",
     "react-click-away-listener": "^2.2.1",
     "react-dom": "^18.2.0",
+    "react-infinite-scroll-component": "^6.1.0",
     "react-loading-skeleton": "^3.1.0",
     "react-modal": "^3.16.1",
     "react-parallax-tilt": "^1.7.57",

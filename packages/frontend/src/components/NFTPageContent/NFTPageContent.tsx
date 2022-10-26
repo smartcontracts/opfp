@@ -1,4 +1,5 @@
 import Skeleton from 'react-loading-skeleton'
+import InfiniteScroll from 'react-infinite-scroll-component'
 
 import { NFTCard } from '../NFTCard'
 import { TraitCard } from '../TraitCard'
@@ -13,6 +14,8 @@ interface NFTCardProps {
   showNfts: boolean
   activeNFT: number
   setActiveNFT: (nft: number) => void
+  fetchNextNfts: () => void
+  hasMoreNfts: boolean
 }
 
 export const NFTPageContent = ({
@@ -22,7 +25,15 @@ export const NFTPageContent = ({
   showNfts,
   activeNFT,
   setActiveNFT,
+  fetchNextNfts,
+  hasMoreNfts,
 }: NFTCardProps) => {
+  const loading = (
+    <div className="card__nftCardEmpty">
+      <p>Fetching NFTs in wallet...</p>
+    </div>
+  )
+
   if (showSkeleton) {
     return (
       <div className="card__skeletonContainer">
@@ -47,14 +58,17 @@ export const NFTPageContent = ({
         </div>
       )
     } else if (nfts[0] === 'loading') {
-      return (
-        <div className="card__nftCardEmpty">
-          <p>Fetching NFTs in wallet...</p>
-        </div>
-      )
+      return loading
     } else {
       return (
-        <div className="card__nftCardContainer">
+        <InfiniteScroll
+          dataLength={nfts?.length}
+          next={fetchNextNfts}
+          hasMore={hasMoreNfts}
+          loader={<p className="card__loadingText">Loading...</p>}
+          height={300}
+          className="card__nftCardContainer"
+        >
           {nfts.map((nft, index) => (
             <NFTCard
               key={index}
@@ -64,7 +78,7 @@ export const NFTPageContent = ({
               onClick={() => setActiveNFT(index === activeNFT ? -1 : index)}
             />
           ))}
-        </div>
+        </InfiniteScroll>
       )
     }
   } else {

@@ -20,21 +20,25 @@ export const shortenAddress = (address: string) => {
   return extShortenAddress(address)
 }
 
-export const getNftsByAddress = async (address: string) => {
+export const getNftsByAddress = async (address: string, next = null) => {
   const url = DEV_MODE ? 'testnet-api' : 'api'
-  debugger
+  const request = next
+    ? next
+    : `https://${url}.qx.app/api/v1/account/${address}/assets/`
+
   try {
-    const response = await fetch(
-      `https://${url}.qx.app/api/v1/account/${address}/assets/`,
-      {
-        headers: {
-          'X-API-KEY': QUIXOTIC_API_KEY,
-        },
-      }
-    )
+    const response = await fetch(request, {
+      headers: {
+        'X-API-KEY': QUIXOTIC_API_KEY,
+      },
+    })
 
     const json = await response.json()
-    return json.results
+
+    const fetchNextPage = () => {
+      return getNftsByAddress(address, json.next)
+    }
+    return [json.results, fetchNextPage]
   } catch (e) {
     console.error(e)
     return []
