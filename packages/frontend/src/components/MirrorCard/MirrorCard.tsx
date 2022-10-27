@@ -7,6 +7,7 @@ import { useLocalStorage } from 'react-use'
 import { storageIds, themes } from '../../constants'
 import { useTheme } from '../../hooks/useTheme'
 import 'react-loading-skeleton/dist/skeleton.css'
+import BACK_OF_CARD from '../../assets/card-back.svg'
 
 interface MirrorCardProps {
   content: React.ReactNode
@@ -49,8 +50,9 @@ export const MirrorCard = ({
       >
         {isFlipped ? (
           <div className="mirrorCard__backside">
-            {/* (✨🔴_🔴✨) */}
-            <p>vroom vroom</p>
+            <div className="mirrorCard__backsideWrapper">
+              <img src={BACK_OF_CARD} alt="back of card" />
+            </div>
           </div>
         ) : (
           <>

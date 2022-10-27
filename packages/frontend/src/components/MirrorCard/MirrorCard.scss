@@ -64,12 +64,20 @@
     -ms-filter: fliph; /*IE*/
     filter: fliph; /*IE*/
 
+    font-weight: 800;
     height: 100%;
     width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 800;
+
+    .mirrorCard__backsideWrapper {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 5px solid #8c8c8c;
+      border-radius: 22px;
+      opacity: 0.2;
+    }
 
     p {
       font-size: 14px;
