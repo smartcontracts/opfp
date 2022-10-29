@@ -24,7 +24,6 @@ export const getMirroredNFT = async (address: string): Promise<any> => {
     const result = await manager.getMirroredNFT(address)
     return result
   } catch (error) {
-    console.log(error)
     return null
   }
 }

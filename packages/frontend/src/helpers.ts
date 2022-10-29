@@ -71,7 +71,8 @@ export const getOpfp = async (chainId: number, address: string) => {
   )
 
   const opfp = await res.json()
-  console.log(opfp)
+  console.log(`http://opfp.art/api/mirror/uri/${chainId}/${address}`, opfp)
+  return opfp
 }
 
 export const shortenString = (str: string, length: number) => {

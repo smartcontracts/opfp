@@ -30,7 +30,6 @@ const { chains, provider } = configureChains(
   ]
 )
 
-console.log(process.env.REACT_APP_ALCHEMY_ID)
 const { connectors } = getDefaultWallets({
   appName: 'MagicMirror',
   chains,

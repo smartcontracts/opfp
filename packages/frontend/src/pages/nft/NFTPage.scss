@@ -149,9 +149,26 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
 
     :nth-child(2) {
       margin-left: 16px;
+    }
+  }
+
+  .nftPage__helpText {
+    font-size: 16px;
+    color: var(--secondary-color);
+    text-shadow: var(--secondary-color) 0px 0px 10px;
+    margin-top: 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: 200ms ease all;
+
+    &:hover {
+      transform: scale(1.05);
+      color: var(--primary-color);
+      text-shadow: var(--primary-color) 0px 0px 10px;
     }
   }
 }

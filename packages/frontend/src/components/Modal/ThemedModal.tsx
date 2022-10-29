@@ -2,6 +2,8 @@ import Modal from 'react-modal'
 
 import { Button } from '../Button'
 import Spinner from '../Spinner/Spinner'
+import { HexagonIcon } from '../../assets/HexagonIcon'
+import { RefreshIcon } from '../../assets/RefreshIcon'
 
 import './ThemedModal.scss'
 
@@ -15,6 +17,7 @@ interface Props {
 export enum ModalType {
   MINT = 'mint',
   UPDATE = 'update',
+  HELP = 'help',
 }
 
 Modal.setAppElement(document.getElementById('root'))
@@ -57,6 +60,52 @@ export const ThemedModal = ({
 
   const buttonText =
     modalType === ModalType.MINT ? 'Continue' : 'View Mirrored NFT'
+
+  if (modalType === ModalType.HELP) {
+    return (
+      <Modal isOpen={isOpen} onRequestClose={handleClose} style={customStyles}>
+        <div className="modalContentWrapper helpModalContentWrapper">
+          <ul>
+            <li>
+              <div className="modal__titleWrapper">
+                <RefreshIcon />
+                <p className="modal__title">Refresh the metadata on OpenSea</p>
+              </div>
+
+              <p className="modal__description">
+                If you are minting your NFT for the first time, you may need to
+                refresh the metadata on OpenSea manually.{' '}
+                <a href="https://opensea.io/account" target="_blank">
+                  View your MagicMirror NFT on OpenSea here
+                </a>
+                , and click the <b>refresh metadata button</b>.
+              </p>
+            </li>
+            <li>
+              <div className="modal__titleWrapper">
+                <HexagonIcon />
+                <p className="modal__title">
+                  Update your profile picture on Twitter
+                </p>
+              </div>
+
+              <p className="modal__description">
+                <a
+                  href="https://support.opensea.io/hc/en-us/articles/4415562648851-How-do-I-set-my-NFT-as-my-Twitter-profile-picture-"
+                  target="_blank"
+                >
+                  Follow this guide
+                </a>{' '}
+                to update your profile picture on twitter to your MagicMirror
+                NFT.
+              </p>
+            </li>
+          </ul>
+          <Button onClick={handleClose}>Close</Button>
+        </div>
+      </Modal>
+    )
+  }
 
   return (
     <Modal isOpen={isOpen} onRequestClose={handleClose} style={customStyles}>

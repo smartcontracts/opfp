@@ -25,3 +25,44 @@
     margin-top: 22px;
   }
 }
+
+.helpModalContentWrapper {
+  width: 500px;
+
+  ul {
+    list-style-type: none;
+    li {
+      color: var(--primary-color);
+      font-size: 20px;
+      font-weight: 600;
+      &:not(:last-child) {
+        margin-bottom: 20px;
+      }
+
+      .modal__titleWrapper {
+        display: flex;
+        align-items: center;
+        margin-bottom: 8px;
+
+        svg {
+          height: 20px;
+          width: 20px;
+          margin-right: 12px;
+        }
+      }
+
+      .modal__description {
+        font-size: 16px;
+        font-weight: 400;
+        color: var(--text-color);
+        line-height: 1.4rem;
+        margin-left: 36px;
+
+        a {
+          color: var(--secondary-color);
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}
