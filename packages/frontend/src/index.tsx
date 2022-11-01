@@ -1,43 +1,68 @@
-import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.scss'
 import { BrowserRouter } from 'react-router-dom'
-import {
-  Mainnet,
-  DAppProvider,
-  Config,
-  Goerli,
-  Optimism,
-  Rinkeby,
-} from '@usedapp/core'
-import { getDefaultProvider } from 'ethers'
 import { SkeletonTheme } from 'react-loading-skeleton'
+import '@rainbow-me/rainbowkit/styles.css'
+import {
+  darkTheme,
+  getDefaultWallets,
+  RainbowKitProvider,
+} from '@rainbow-me/rainbowkit'
+import { chain, configureChains, createClient, WagmiConfig } from 'wagmi'
+import { alchemyProvider } from 'wagmi/providers/alchemy'
+import { publicProvider } from 'wagmi/providers/public'
 
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 
-const config: Config = {
-  readOnlyChainId: Mainnet.chainId,
-  readOnlyUrls: {
-    [Mainnet.chainId]: getDefaultProvider('mainnet'),
-    [Optimism.chainId]: getDefaultProvider('optimism'),
-    [Goerli.chainId]: getDefaultProvider('goerli'),
-    [Rinkeby.chainId]: getDefaultProvider('rinkeby'),
-  },
-}
+const { chains, provider } = configureChains(
+  [
+    chain.mainnet,
+    chain.polygon,
+    chain.optimism,
+    chain.arbitrum,
+    chain.optimismGoerli,
+    chain.goerli,
+  ],
+  [
+    alchemyProvider({ apiKey: process.env.REACT_APP_ALCHEMY_ID }),
+    publicProvider(),
+  ]
+)
+
+const { connectors } = getDefaultWallets({
+  appName: 'MagicMirror',
+  chains,
+})
+
+const wagmiClient = createClient({
+  autoConnect: true,
+  connectors,
+  provider,
+})
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
-  <DAppProvider config={config}>
-    <BrowserRouter>
-      <SkeletonTheme
-        baseColor="var(--skeleton-bg)"
-        highlightColor="var(--skeleton-highlight)"
-      >
-        <App />
-      </SkeletonTheme>
-    </BrowserRouter>
-  </DAppProvider>
+  <WagmiConfig client={wagmiClient}>
+    <RainbowKitProvider
+      theme={darkTheme({
+        accentColor: 'var(--primary-color)',
+        accentColorForeground: 'white',
+      })}
+      modalSize="compact"
+      chains={chains}
+    >
+      <BrowserRouter>
+        <SkeletonTheme
+          baseColor="var(--skeleton-bg)"
+          highlightColor="var(--skeleton-highlight)"
+        >
+          {/* <UseDappRainbowKitAdapter /> */}
+          <App />
+        </SkeletonTheme>
+      </BrowserRouter>
+    </RainbowKitProvider>
+  </WagmiConfig>
 )
 
 // If you want to start measuring performance in your app, pass a function

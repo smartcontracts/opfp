@@ -1,22 +1,21 @@
 import { useNavigate } from 'react-router-dom'
-import { useEthers } from '@usedapp/core'
 import { useEffect } from 'react'
+import { useConnectModal } from '@rainbow-me/rainbowkit'
+import { useAccount } from 'wagmi'
 
 import { MirrorCard } from '../../components/MirrorCard'
 import { AppLayout } from '../../layout/AppLayout/AppLayout'
-import METAMASK_LOGO from '../../assets/metamask-logo.png'
-import WALLET_CONNECT_LOGO from '../../assets/wallet-connect-logo.png'
-import COINBASE_LOGO from '../../assets/coinbase-logo.png'
 import WALLET_ICON from '../../assets/wallet.webp'
-
 import './Connect.scss'
+import { Button } from '../../components/Button'
 
 export const Connect = () => {
-  const { activateBrowserWallet, account } = useEthers()
+  const { address } = useAccount()
   const navigate = useNavigate()
+  const { openConnectModal } = useConnectModal()
 
   useEffect(() => {
-    if (account) {
+    if (address) {
       navigate('/nft')
     }
   })
@@ -43,18 +42,11 @@ export const Connect = () => {
       }
       content={
         <div className="connect__content">
-          <button
-            className="connect__button metamask"
-            onClick={() => {
-              activateBrowserWallet()
-            }}
-          >
-            <div className="wrapper">
-              <img src={METAMASK_LOGO} alt="MetaMask" />
-              <span>MetaMask</span>
-            </div>
-          </button>
-          <button className="connect__button mobile">
+          <Button onClick={openConnectModal}>Connect Wallet</Button>
+          <p>
+            Please connect your wallet above in order to use the MagicMirror.
+          </p>
+          {/* <button className="connect__button mobile">
             <div className="wrapper">
               <img src={WALLET_CONNECT_LOGO} alt="Wallet connect" />
               <span>Mobile wallet</span>
@@ -65,7 +57,7 @@ export const Connect = () => {
               <img src={COINBASE_LOGO} alt="Coinbase" />
               <span>Coinbase wallet</span>
             </div>
-          </button>
+          </button> */}
         </div>
       }
     />

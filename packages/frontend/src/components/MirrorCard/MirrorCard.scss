@@ -14,7 +14,7 @@
     border-top-left-radius: 22px;
     border-bottom-right-radius: 8px;
     border-bottom-left-radius: 8px;
-    border: 3px solid var(--mirror-border-color);
+    border: 1px solid var(--mirror-border-color);
     overflow: hidden;
     height: 240px;
 
@@ -64,17 +64,27 @@
     -ms-filter: fliph; /*IE*/
     filter: fliph; /*IE*/
 
+    font-weight: 800;
     height: 100%;
     width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+
+    .mirrorCard__backsideWrapper {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 5px solid #8c8c8c;
+      border-radius: 22px;
+      opacity: 0.2;
+    }
 
     p {
       font-size: 14px;
-      font-weight: 700;
+      font-weight: 800;
       opacity: 0.3;
       font-style: italic;
+      color: black;
     }
   }
 }

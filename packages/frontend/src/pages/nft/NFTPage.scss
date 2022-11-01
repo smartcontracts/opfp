@@ -2,15 +2,14 @@
   font-size: 14px;
   font-weight: 500;
   padding: 0px 12px;
-  margin-top: -14px;
+  margin-top: -16px;
 
   .title {
     color: var(--text-color);
-    text-shadow: var(--text-color) 0px 0px 7px;
-    font-weight: 600;
+    font-weight: 800;
     font-size: 18px;
     font-style: italic;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
   }
 
   .row {
@@ -76,6 +75,28 @@
     }
   }
 
+  .card__loadingText {
+    color: var(--primary-color);
+    text-shadow: var(--primary-color) 0px 0px 7px;
+    margin: 8px 0px !important;
+    text-align: center;
+    width: 100%;
+    font-weight: 600;
+    animation: pulse infinite 2000ms;
+
+    @keyframes pulse {
+      0% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+  }
   .card__nftCardContainer {
     display: flex;
     flex-wrap: wrap;
@@ -128,9 +149,26 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
 
     :nth-child(2) {
       margin-left: 16px;
+    }
+  }
+
+  .nftPage__helpText {
+    font-size: 16px;
+    color: var(--secondary-color);
+    text-shadow: var(--secondary-color) 0px 0px 10px;
+    margin-top: 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: 200ms ease all;
+
+    &:hover {
+      transform: scale(1.05);
+      color: var(--primary-color);
+      text-shadow: var(--primary-color) 0px 0px 10px;
     }
   }
 }

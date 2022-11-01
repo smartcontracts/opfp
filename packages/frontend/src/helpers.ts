@@ -1,6 +1,6 @@
 import { shortenAddress as extShortenAddress } from '@usedapp/core'
 
-import { QUIXOTIC_API_KEY } from './config'
+import { DEV_MODE, QUIXOTIC_API_KEY } from './config'
 
 export const shortenEthEns = (str: string) => {
   if (str.length <= 13) {
@@ -20,18 +20,27 @@ export const shortenAddress = (address: string) => {
   return extShortenAddress(address)
 }
 
-export const getNftsByAddress = async (address: string) => {
+export const getNftsByAddress = async (address: string, next = null) => {
+  const url = DEV_MODE ? 'testnet-api' : 'api'
+  const request = next
+    ? next
+    : `https://${url}.qx.app/api/v1/account/${address}/assets/`
+
   try {
-    const response = await fetch(
-      `https://api.qx.app/api/v1/account/${address}/assets/`,
-      {
-        headers: {
-          'X-API-KEY': QUIXOTIC_API_KEY,
-        },
-      }
-    )
+    const response = await fetch(request, {
+      headers: {
+        'X-API-KEY': QUIXOTIC_API_KEY,
+      },
+    })
+
     const json = await response.json()
-    return json.results
+
+    const fetchNextPage = json.next
+      ? () => {
+          return getNftsByAddress(address, json.next)
+        }
+      : null
+    return [json.results, fetchNextPage]
   } catch (e) {
     console.error(e)
     return []
@@ -42,8 +51,9 @@ export const getNftDetails = async (contract: string, id: string) => {
   if (!contract || !id) {
     return null
   }
+  const url = DEV_MODE ? 'testnet-api' : 'api'
   const res = await fetch(
-    `https://api.qx.app/api/v1/asset/${contract}:${id}/`,
+    `https://${url}.qx.app/api/v1/asset/${contract}:${id}/`,
     {
       headers: {
         'X-API-KEY': QUIXOTIC_API_KEY,
@@ -61,7 +71,8 @@ export const getOpfp = async (chainId: number, address: string) => {
   )
 
   const opfp = await res.json()
-  console.log(opfp)
+  console.log(`http://opfp.art/api/mirror/uri/${chainId}/${address}`, opfp)
+  return opfp
 }
 
 export const shortenString = (str: string, length: number) => {

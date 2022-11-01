@@ -1,39 +1,41 @@
-import { useContractFunction, Rinkeby, Optimism } from '@usedapp/core'
 import MagicMirrorNFT from '@opfp/contracts/artifacts/contracts/MagicMirrorNFT.sol/MagicMirrorNFT.json'
 import MagicMirrorManager from '@opfp/contracts/artifacts/contracts/MagicMirrorManager.sol/MagicMirrorManager.json'
-import { Contract, ethers } from 'ethers'
+import { ethers } from 'ethers'
+import { useContractWrite, usePrepareContractWrite } from 'wagmi'
 
-import { CONTRACTS } from '../config'
-
-// Config
-const MIRROR_NFT_CHAIN_ID = Rinkeby.chainId
+import {
+  CONTRACTS,
+  MIRROR_MANAGER_NETWORK,
+  MIRROR_MANAGER_NFT_CHAIN_ID,
+  MIRROR_NFT_CHAIN_ID,
+  MIRROR_NFT_NETWORK,
+} from '../config'
 
 // Calls Mirror Manager contract to get mirror NFT contract address + token id.
 export const getMirroredNFT = async (address: string): Promise<any> => {
-  const optimism = new ethers.providers.InfuraProvider('optimism')
+  const network = new ethers.providers.InfuraProvider(MIRROR_MANAGER_NETWORK)
   const manager = new ethers.Contract(
-    CONTRACTS.MIRROR_MANAGER[Optimism.chainId],
+    CONTRACTS.MIRROR_MANAGER[MIRROR_MANAGER_NFT_CHAIN_ID],
     MagicMirrorManager.abi,
-    optimism
+    network
   )
 
   try {
     const result = await manager.getMirroredNFT(address)
     return result
   } catch (error) {
-    console.log(error)
     return null
   }
 }
 
 // Calls Mirror NFT contract to see if account owns the respective mirror NFT.
 export const getHasNft = async (account) => {
-  const rinkeby = new ethers.providers.InfuraProvider('rinkeby')
+  const network = new ethers.providers.InfuraProvider(MIRROR_NFT_NETWORK)
 
   const mirror = new ethers.Contract(
     CONTRACTS.MIRROR_NFT[MIRROR_NFT_CHAIN_ID],
     MagicMirrorNFT.abi,
-    rinkeby
+    network
   )
 
   const tokenID = account
@@ -43,29 +45,62 @@ export const getHasNft = async (account) => {
   return mirror.ownerOf(tokenID)
 }
 
+export const useUpdateNft = () => {
+  const {
+    data,
+    isLoading,
+    isSuccess,
+    write: update,
+  } = useContractWrite({
+    mode: 'recklesslyUnprepared',
+    addressOrName: CONTRACTS.MIRROR_MANAGER[MIRROR_MANAGER_NFT_CHAIN_ID],
+    contractInterface: MagicMirrorManager.abi,
+    functionName: 'setMirroredNFT',
+    args: [],
+  })
+
+  // const { config: setMirroredNFTConfig } = usePrepareContractWrite({
+  //   addressOrName: CONTRACTS.MIRROR_MANAGER[MIRROR_MANAGER_NFT_CHAIN_ID],
+  //   contractInterface: MagicMirrorManager.abi,
+  //   functionName: 'setMirroredNFT',
+  //   args: [contract, token],
+  // })
+
+  // const {
+  //   data,
+  //   isLoading,
+  //   write: update,
+  // } = useContractWrite(setMirroredNFTConfig)
+
+  const updateState = {
+    data,
+    isLoading,
+    isSuccess,
+  }
+
+  return { update, updateState }
+}
+
 // Hook exposing mint + update calls for mirror NFT.
 export const useMirror = () => {
-  const mirrorContract = new Contract(
-    CONTRACTS.MIRROR_NFT[MIRROR_NFT_CHAIN_ID],
-    MagicMirrorNFT.abi
-  )
+  const { config: mintConfig } = usePrepareContractWrite({
+    addressOrName: CONTRACTS.MIRROR_NFT[MIRROR_NFT_CHAIN_ID],
+    contractInterface: MagicMirrorNFT.abi,
+    functionName: 'mint',
+  })
 
-  const { send: mint, state: mintState } = useContractFunction(
-    mirrorContract,
-    'mint',
-    {}
-  )
+  const {
+    data: mintData,
+    isLoading: mintIsLoading,
+    isSuccess: mintIsSuccess,
+    write: mint,
+  } = useContractWrite(mintConfig)
 
-  const mirrorManagerContract = new Contract(
-    CONTRACTS.MIRROR_MANAGER[Optimism.chainId],
-    MagicMirrorManager.abi
-  )
+  const mintState = {
+    data: mintData,
+    isLoading: mintIsLoading,
+    isSuccess: mintIsSuccess,
+  }
 
-  const { send: update, state: updateState } = useContractFunction(
-    mirrorManagerContract,
-    'setMirroredNFT',
-    {}
-  )
-
-  return { mint, mintState, update, updateState }
+  return { mint, mintState }
 }
