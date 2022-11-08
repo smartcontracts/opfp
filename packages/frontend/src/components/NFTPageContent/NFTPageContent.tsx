@@ -44,7 +44,7 @@ export const NFTPageContent = ({
       </div>
     )
   } else if (showNfts) {
-    if (nfts.length === 0) {
+    if (nfts?.length === 0) {
       return (
         <div className="card__nftCardEmpty">
           <p>No NFTs found 😓</p>
@@ -57,19 +57,19 @@ export const NFTPageContent = ({
           </p>
         </div>
       )
-    } else if (nfts[0] === 'loading') {
+    } else if (nfts && nfts[0] === 'loading') {
       return loading
     } else {
       return (
         <InfiniteScroll
-          dataLength={nfts?.length}
+          dataLength={nfts?.length || 0}
           next={fetchNextNfts}
           hasMore={hasMoreNfts}
           loader={<p className="card__loadingText">Loading...</p>}
           height={300}
           className="card__nftCardContainer"
         >
-          {nfts.map((nft, index) => (
+          {nfts?.map((nft, index) => (
             <NFTCard
               key={index}
               name={nft.name}
