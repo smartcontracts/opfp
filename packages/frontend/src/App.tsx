@@ -5,7 +5,7 @@ import { Connect } from './pages/connect'
 import { Header } from './layout/Header/Header'
 import { Home } from './pages/home'
 import { NFTPage } from './pages/nft'
-// import { Footer } from './layout/Footer/Footer'
+import { Footer } from './layout/Footer/Footer'
 
 const App = () => {
   return (
@@ -16,7 +16,7 @@ const App = () => {
         <Route path="/connect" element={<Connect />} />
         <Route path="/nft" element={<NFTPage />} />
       </Routes>
-      {/* <Footer /> */}
+      <Footer />
     </div>
   )
 }

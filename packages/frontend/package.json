@@ -24,25 +24,29 @@
     "url": "https://github.com/smartcontracts/opfp.git"
   },
   "dependencies": {
+    "@rainbow-me/rainbowkit": "^0.7.3",
     "@usedapp/core": "^1.1.5",
     "classnames": "^2.3.1",
-    "ethers": "^5.7.0",
+    "dotenv": "^16.0.3",
     "react": "^18.2.0",
     "react-click-away-listener": "^2.2.1",
     "react-dom": "^18.2.0",
+    "react-infinite-scroll-component": "^6.1.0",
     "react-loading-skeleton": "^3.1.0",
+    "react-modal": "^3.16.1",
     "react-parallax-tilt": "^1.7.57",
     "react-router-dom": "6",
     "react-scripts": "5.0.1",
     "react-use": "^17.4.0",
     "sass": "^1.54.5",
+    "wagmi": "^0.6.8",
     "web-vitals": "^2.1.0"
   },
   "devDependencies": {
     "@opfp/contracts": "^0.1.0",
     "@types/react": "^18.0.14",
     "@types/react-dom": "^18.0.5",
-    "ethers": "^5.6.9"
+    "ethers": "^5.7.2"
   },
   "browserslist": {
     "production": [

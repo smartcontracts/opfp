@@ -1,0 +1,41 @@
+.footerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 24px 24px 24px;
+
+  a {
+    color: var(--secondary-color);
+  }
+
+  svg {
+    height: 24px;
+    width: 24px;
+    transition: 200ms ease all;
+
+    &:hover {
+      transform: scale(1.1);
+      color: var(--primary-color);
+    }
+
+    &:active {
+      transform: scale(1);
+    }
+  }
+
+  .handleWrapper {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 500;
+
+    a {
+      text-decoration: none;
+      transition: ease 200ms all;
+
+      &:hover {
+        color: var(--primary-color);
+      }
+    }
+  }
+}
