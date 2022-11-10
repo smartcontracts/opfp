@@ -273,7 +273,7 @@ class App extends React.Component<Props, State> {
                     <p>
                       The Magic Mirror allows you to mirror your Optimism NFTs
                       on Ethereum so you can display them on apps like Twitter
-                      that don't yet support Opitmism NFTs natively.
+                      that don't yet support Optimism NFTs natively.
                     </p>
                     <p>
                       Once you connect your wallet, you'll first be prompted to
