@@ -20,7 +20,7 @@ export const Home = () => {
         <span>The Magic Mirror</span> allows you to mirror your{' '}
         <span>Optimism NFTs on Ethereum</span> so you can{' '}
         <span>display them on apps like Twitter</span> that don't yet support
-        Opitmism NFTs natively.
+        Optimism NFTs natively.
       </p>
       <p>
         Once you connect your wallet, you'll first be prompted to mint a Magic
